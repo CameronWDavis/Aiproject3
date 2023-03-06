@@ -1,0 +1,16 @@
+Feasible:
+o0: beef beer icecream
+o1: fish beer icecream
+o4: beef beer cake
+o5: fish beer cake
+o6: beef wine cake
+o7: fish wine cake
+
+Penalty Optimal:
+o7 with 0 penalty
+
+Possibilistic Optimal:
+o7 with 1 tolerance
+
+Choice Optimal:
+o0, o1, o7

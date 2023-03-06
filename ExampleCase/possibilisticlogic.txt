@@ -1,0 +1,2 @@
+fish AND wine, 0.9
+wine OR cake, 0.6
