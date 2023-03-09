@@ -1,0 +1,4 @@
+steak BT chicken IF beer
+wine BT beer IF chicken
+jerk BT rice OR NOT jerk IF beer
+cake BT ice-cream IF soup

@@ -1,0 +1,10 @@
+rice OR Not jerk, 30
+beer AND Not jerk OR tomato AND ice-cream, 40
+soup OR chicken, 20
+cabbage, 25
+cabbage AND wine, 10
+cabbage AND icecream, 10
+wine AND salad, 15
+vanilla OR icecream, 20
+vanilla, 5
+
