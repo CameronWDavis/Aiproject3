@@ -93,8 +93,8 @@ def preferenceQualitative(model, preference_qualitative, modelV):
             if not solve(model, transform(conditionNow)):
                 break
 
-                if solve(model, transform(preference)):
-                    satisfaction = items["preference"].index(preference) + 1
+            if solve(model, transform(preference)):
+                satisfaction = items["preference"].index(preference) + 1
 
             print(
                 f"Satisfaction for model '{modelV}' and preference '{preference}' and condition {conditionNow}: {satisfaction}")
