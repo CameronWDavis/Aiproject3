@@ -124,6 +124,17 @@ with open('ExampleCase/myQualititaveLogic.txt', 'r') as f:
                 preference_list.append([preference.strip()])
         c = line.split('IF')
         condition = c[1].strip()
-        preferencesQualitative.append({'preference': preference_list, 'condition': [condition]})
+        preferencesQualitative.append({'preference': preference_list, 'condition': [condition], 'statement': line.rstrip()})
 
 # print(preferencesQualitative)
+
+def assign_binary(lst):
+    binary_digits = [1 if val >= 0 else 0 for val in lst]
+    binary_str = ''.join(str(digit) for digit in binary_digits)
+    binary_value = int(binary_str, 2)
+    return binary_value
+
+
+def to_subscript(n):
+    subscript_digits = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
+    return str(n).translate(subscript_digits)

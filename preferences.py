@@ -3,14 +3,17 @@ from pysat.formula import CNF
 from input import *
 from pysatSolve import *
 import math
+import pandas as pd
 
 
-# iterate over the preferences and calculate their penalties
+# iterate over the preferences and calculate
 
 
 def preferencePenalty(model, preference_penalty):
     total_penalty = 0
 
+    x = {}
+    x["model"] = model
     for preference, penalty in preference_penalty.items():
         variables = preference.split(' OR ')
         satisfied = False
@@ -39,17 +42,24 @@ def preferencePenalty(model, preference_penalty):
 
         # calculate the penalty for the model for the current preference
         preference_penalty_value = penalty if not satisfied else 0
-        print(f"Penalty for model '{model}' and preference '{preference}': {preference_penalty_value}")
+        # '0'f"{to_subscript(assign_binary(y))}"
+        # x = {"model": model, preference: preference_penalty}
+        x[preference] = preference_penalty_value
+        # print(f"Penalty for model '{model}' and preference '{preference}': {preference_penalty_value}")
 
     # print the total penalty for the model
-    print(f"Total penalty for the model '{model}': {total_penalty}")
-    print()
+    x["Total"] = total_penalty
+    Penalty.append(x)
+    # print(f"Total penalty for the model '{model}': {total_penalty}")
+    # print()
+    return Penalty
 
 
 def preferencePossibility(model, preference_possibility):
     total_tolerance = 0
     values = []
-
+    x = {}
+    x["model"] = model
     for preference, tolerance in preference_possibility.items():
         variables = preference.split(' OR ')
         satisfied = False
@@ -78,29 +88,44 @@ def preferencePossibility(model, preference_possibility):
         values.append(preference_penalty_value)
 
         total_tolerance = min(values)
-        print(f"Tolerance for model '{model}' and preference '{preference}': {preference_penalty_value}")
+        x[preference] = preference_penalty_value
+        # print(f"Tolerance for model '{model}' and preference '{preference}': {preference_penalty_value}")
 
     # print the total penalty for the model
-    print(f"Total tolerance for the model '{model}': {total_tolerance}")
-    print()
+    x["Total"] = total_tolerance
+    Possibility.append(x)
+    # print(f"Total tolerance for the model '{model}': {total_tolerance}")
+    # print()
+    return Possibility
 
 
-def preferenceQualitative(model, preference_qualitative, modelV):
+def preferenceQualitative(model, preference_qualitative, modelV, ):
     satisfaction = math.inf
+    x = {}
+    x["model"] = modelV
+
     for items in preference_qualitative:
+        v = items["preference"]
         for preference in items["preference"]:
             conditionNow = items["condition"]
             if not solve(model, transform(conditionNow)):
+                # v = items["preference"]
                 break
 
             if solve(model, transform(preference)):
                 satisfaction = items["preference"].index(preference) + 1
+            # v = items["preference"]
 
-            print(
-                f"Satisfaction for model '{modelV}' and preference '{preference}' and condition {conditionNow}: {satisfaction}")
-
-    print(
-        f"Satisfaction for model '{modelV}' and preference '{preference}' and condition {conditionNow}: {satisfaction}")
+            # v = items["preference"]
+            # print(
+            #     f"Satisfaction for model O{to_subscript(assign_binary(model))} and preference '{preference}' and condition {conditionNow}: {satisfaction}")
+        x[items["statement"]] = satisfaction
+        Qualitative.append(x)
+        # print(
+        #     f"Satisfaction for model O{to_subscript(assign_binary(model))} and preference '{preference}' and condition {conditionNow}: {satisfaction}")
+        # print(
+        #     f"Satisfaction for model O{to_subscript(assign_binary(model))} and preference '{v}' and condition {conditionNow}: {satisfaction}")
+    return Qualitative
 
 
 def transform(model):
@@ -133,16 +158,28 @@ def transform(model):
         return clauses
 
 
-print()
-print("Prefernce : Penalty Logic")
+# list containing all the model and the different penalty logic base on the preferences
+Penalty = []
+# list containing all the model and the different possibility logic base on the preferences
+Possibility = []
+# list containing all the model and the different qualitative logic base on the preferences
+Qualitative = []
+
 for model in models:
-    preferencePenalty(model, preferencesPenalty)
-print()
-print("Prefernce : Possibility Logic")
+    t = preferencePenalty(model, preferencesPenalty)
+
 for model in models:
-    preferencePossibility(model, preferencesPossibility)
-print()
-print("Prefernce : Qualitative Logic")
+    k = preferencePossibility(model, preferencesPossibility)
+
 for x, y in zip(models, modelsCNF):
-    # print()
-    preferenceQualitative(y, preferencesQualitative, x)
+    n = preferenceQualitative(y, preferencesQualitative, x)
+
+print()
+print("Preference : Penalty Logic")
+print(t)
+print()
+print("Preference : Possibility Logic")
+print(k)
+print()
+print("Preference : Qualitative Logic")
+print(n)

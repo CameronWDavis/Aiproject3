@@ -3,6 +3,8 @@ from pysat.formula import CNF
 from pysat.solvers import Solver
 from input import *
 
+
+# this how the mapping dictionary look we if we consider this example attributes
 # original_dict = {
 #     'soup': 1,
 #     'chicken': 2,
@@ -26,7 +28,7 @@ from input import *
 new_dict = {v: k for k, v in original_dict.items()}
 
 clauses.extend([[-x, x] for x in range(1, len(menu) + 1)])
-# print(clauses)
+
 cnf = CNF(from_clauses=clauses)
 
 # create a constraint : not noodle or tomato : [4, -5]
@@ -37,15 +39,15 @@ cnf = CNF(from_clauses=clauses)
 
 # create a SAT solver for this formula:
 with Solver(bootstrap_with=cnf) as solver:
-    # 1.1 call the solver for this formula:
-    print('formula is', f'{"s" if solver.solve() else "uns"}atisfiable')
+    # # 1.1 call the solver for this formula:
+    # print('formula is', f'{"s" if solver.solve() else "uns"}atisfiable')
 
-    # 1.2 the formula is satisfiable and so has a model:
-    print('and the model is:', solver.get_model())
+    # # 1.2 the formula is satisfiable and so has a model:
+    # print('and the model is:', solver.get_model())
 
     # enumerate al models :
 
-    print("Here are all the model of this formula:")
+    print("Here are all the feasible objects models of this formula:")
 
     models = []
     modelsCNF= []
@@ -54,9 +56,10 @@ with Solver(bootstrap_with=cnf) as solver:
         model_dict = [new_dict[x] for x in m]
         models.append(model_dict)
 
-    # for m in models:
-    #     print(m)
-    # all the model of the formula satisfying are  saved in models list
+    for x, y in zip(models, modelsCNF):
+        print('0'f"{to_subscript(assign_binary(y))}", x)
+    # all the model of the formula satisfying are saved in models list
+
 
 
 # this method solve the satisfiability
@@ -65,5 +68,7 @@ def solve(model, conditions):
     cnf1 = CNF(from_clauses=conditions)
     # print(model)
     with Solver(bootstrap_with=cnf1) as solver1:
-        # 1.1 call the solver for this formula:
+        #  call the solver for this formula:
         return solver1.solve(assumptions=model)
+
+

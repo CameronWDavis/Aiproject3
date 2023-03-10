@@ -1,4 +1,4 @@
 NOT noodles OR NOT wine
 NOT beer OR NOT cabbage
-vanilla OR cake
+NOT vanilla OR NOT cake
 NOT chicken
