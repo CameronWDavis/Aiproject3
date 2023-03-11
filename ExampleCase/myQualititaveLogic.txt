@@ -1,4 +1,4 @@
 steak BT chicken IF beer
 wine BT beer IF chicken
-tomato BT rice OR NOT tomato IF beer
+tomato AND salad BT rice AND teriyaki IF beer
 cake BT ice-cream IF soup

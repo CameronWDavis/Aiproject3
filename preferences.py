@@ -3,6 +3,8 @@ from pysat.formula import CNF
 from input import *
 from pysatSolve import *
 import math
+import random
+import re
 import pandas as pd
 
 
@@ -114,48 +116,51 @@ def preferenceQualitative(model, preference_qualitative, modelV, ):
 
             if solve(model, transform(preference)):
                 satisfaction = items["preference"].index(preference) + 1
-            # v = items["preference"]
-
-            # v = items["preference"]
             # print(
             #     f"Satisfaction for model O{to_subscript(assign_binary(model))} and preference '{preference}' and condition {conditionNow}: {satisfaction}")
         x[items["statement"]] = satisfaction
-        Qualitative.append(x)
-        # print(
-        #     f"Satisfaction for model O{to_subscript(assign_binary(model))} and preference '{preference}' and condition {conditionNow}: {satisfaction}")
-        # print(
-        #     f"Satisfaction for model O{to_subscript(assign_binary(model))} and preference '{v}' and condition {conditionNow}: {satisfaction}")
+    Qualitative.append(x)
+    # print(
+    #     f"Satisfaction for model O{to_subscript(assign_binary(model))} and preference '{preference}' and condition {conditionNow}: {satisfaction}")
+    # print(
+    #     f"Satisfaction for model O{to_subscript(assign_binary(model))} and preference '{v}' and condition {conditionNow}: {satisfaction}")
     return Qualitative
 
 
 def transform(model):
-    clauses = []
-    # read each line in the file
+    clausesV = []
     for pref in model:
-        # remove the newline character
         pref = pref.strip()
-        # split the line by 'OR'
-        tokens = pref.split('OR')
+        # split preference string by 'OR'
+        or_tokens = pref.split('OR')
         # initialize an empty list to store the literals
         literals = []
-        # iterate over the tokens
-        for token in tokens:
-            # remove whitespace
-            token = token.strip()
-            # check if the token starts with 'NOT'
-            if token.startswith('NOT'):
-                # get the literal name (without the 'NOT' prefix)
-                literal = token[4:]
-                # look up the integer value of the literal in the dictionary
-                value = -original_dict[literal]
-            else:
-                # look up the integer value of the literal in the dictionary
-                value = original_dict[token]
-            # add the literal to the list
-            literals.append(value)
-        # add the clause to the list of clauses
-        clauses.append(literals)
-        return clauses
+        # iterate over the 'OR' tokens
+        for or_token in or_tokens:
+            # split 'OR' token by 'AND'
+            and_tokens = or_token.split('AND')
+            # initialize a new list of literals for each 'AND' clause
+            and_literals = []
+            # iterate over the 'AND' tokens
+            for and_token in and_tokens:
+                and_token = and_token.strip()
+                # check if the token starts with 'NOT'
+                if and_token.startswith('NOT'):
+                    # get the literal name (without the 'NOT' prefix)
+                    literal = and_token[4:]
+                    # look up the integer value of the literal in the dictionary
+                    value = -original_dict[literal]
+                else:
+                    # look up the integer value of the literal in the dictionary
+                    value = original_dict[and_token]
+                # add the literal to the list of AND literals
+                clausesV.append([value])
+            literals.extend(and_literals)
+        # print(clausesV)
+    return clausesV
+
+
+
 
 
 # list containing all the model and the different penalty logic base on the preferences
@@ -174,12 +179,32 @@ for model in models:
 for x, y in zip(models, modelsCNF):
     n = preferenceQualitative(y, preferencesQualitative, x)
 
+# print()
+# print("Preference : Penalty Logic")
+# print(t)
+# print()
+# print("Preference : Possibility Logic")
+# print(k)
+# print()
+# print("Preference : Qualitative Logic")
+# print(n)
+
+
 print()
 print("Preference : Penalty Logic")
-print(t)
+for i in t:
+    print(i)
 print()
 print("Preference : Possibility Logic")
-print(k)
+for i in k:
+    print(i)
 print()
 print("Preference : Qualitative Logic")
-print(n)
+for i in n:
+    print(i)
+
+
+# exemplification
+# s=random.sample(models, 2)
+#
+# print(s)

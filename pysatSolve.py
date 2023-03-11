@@ -25,6 +25,11 @@ from input import *
 #     'ice-cream': -8
 # }
 
+def getModelObject(model_tested):
+    b = '0'f"{to_subscript(assign_binary(y))}"
+    return b
+
+
 new_dict = {v: k for k, v in original_dict.items()}
 
 clauses.extend([[-x, x] for x in range(1, len(menu) + 1)])
@@ -50,25 +55,24 @@ with Solver(bootstrap_with=cnf) as solver:
     print("Here are all the feasible objects models of this formula:")
 
     models = []
-    modelsCNF= []
+    modelsCNF = []
     for m in solver.enum_models():
         modelsCNF.append(m)
         model_dict = [new_dict[x] for x in m]
         models.append(model_dict)
 
     for x, y in zip(models, modelsCNF):
-        print('0'f"{to_subscript(assign_binary(y))}", x)
+        # print('0'f"{to_subscript(assign_binary(y))}", x)
+        print(getModelObject(y), x)
     # all the model of the formula satisfying are saved in models list
-
 
 
 # this method solve the satisfiability
 def solve(model, conditions):
     conditions.extend([[-x, x] for x in range(1, len(menu) + 1)])
+    # print("the clauses is", conditions)
     cnf1 = CNF(from_clauses=conditions)
     # print(model)
     with Solver(bootstrap_with=cnf1) as solver1:
         #  call the solver for this formula:
         return solver1.solve(assumptions=model)
-
-
