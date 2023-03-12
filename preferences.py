@@ -1,11 +1,9 @@
-from pysat.solvers import Glucose3
 from pysat.formula import CNF
 from input import *
 from pysatSolve import *
 import math
 import random
 import re
-import pandas as pd
 
 
 # iterate over the preferences and calculate
@@ -160,9 +158,6 @@ def transform(model):
     return clausesV
 
 
-
-
-
 # list containing all the model and the different penalty logic base on the preferences
 Penalty = []
 # list containing all the model and the different possibility logic base on the preferences
@@ -180,15 +175,20 @@ for x, y in zip(models, modelsCNF):
     n = preferenceQualitative(y, preferencesQualitative, x)
 
 # print()
-# print("Preference : Penalty Logic")
-# print(t)
-# print()
-# print("Preference : Possibility Logic")
-# print(k)
-# print()
-# print("Preference : Qualitative Logic")
-# print(n)
+print("Preference : Penalty Logic")
+# sorted the list with respect to the Total penalty: assending
+t = sorted(t, key=lambda x: x['Total'], reverse=False)
+print(t)
 
+print()
+print("Preference : Possibility Logic")
+k = sorted(k, key=lambda x: x['Total'], reverse=True)
+print(k)
+
+print()
+print("Preference : Qualitative Logic")
+# n = sorted(n, key=lambda x: x['Total'], reverse=False)
+print(n)
 
 print()
 print("Preference : Penalty Logic")
@@ -203,8 +203,68 @@ print("Preference : Qualitative Logic")
 for i in n:
     print(i)
 
-
-# exemplification
-# s=random.sample(models, 2)
+# exemplification tow random feasible object
+s = random.sample(models, 2)
 #
 # print(s)
+print()
+for z in t:
+    for f in t:
+        if z["model"] == s[0] and f['model'] == s[1]:
+            if z["Total"] < f["Total"]:
+                print(f"{s[0]} is preferred to {s[1]} according to penalty Logic.")
+            elif z["Total"] > f["Total"]:
+                print(f"{s[1]} is preferred to {s[0]} according to penalty Logic.")
+            else:
+                print(f"{s[0]} is equally preferred to {s[1]} according to penalty Logic.", z["Total"], f["Total"])
+
+print()
+
+for z in k:
+    for f in k:
+        if z["model"] == s[0] and f['model'] == s[1]:
+            if z["Total"] > f["Total"]:
+                print(f"{s[0]} is preferred to {s[1]} according to possibilistic Logic.")
+            elif z["Total"] < f["Total"]:
+                print(f"{s[1]} is preferred to {s[0]} according to possibilistic Logic.")
+            else:
+                print(f"{s[0]} is equally preferred to {s[1]} according to possibilistic Logic.", z["Total"], f["Total"])
+
+print()
+
+val1, val2 =0,0
+for z in n:
+    for f in n:
+        if z["model"] == s[0] and f['model'] == s[1]:
+            for key1, key2  in zip(z,f):
+                # Skip the 'model' key since we already printed its value
+                if key1 == 'model' or key2=='model':
+                    continue
+                if z[key1] == math.inf and f[key2]== math.inf:
+                    continue
+                if z[key1]!= math.inf and f[key2]==math.inf:
+                    val1+=1
+                if z[key1]== math.inf and f[key2]!=math.inf:
+                    val2+=1
+                if z[key1] <f[key2]:
+                    val1+=1
+                if z[key1] > f[key2]:
+                    val2 += 1
+
+if val1 <val2:
+    print(f"{s[1]} is preferred to {s[0]} according to qualitative Logic.")
+elif val1>val2:
+    print(f"{s[0]} is preferred to {s[1]} according to qualitative Logic.")
+elif val1== val2:
+    print(f"{s[0]} is equally preferred to {s[1]} according to qualitative Logic.", val1, val2)
+else:
+    print(f"{s[0]} and {s[1]} are incomparable according to qualitative Logic.")
+
+print()
+
+
+print(f"The optimal object according to penalty Logic is {t[0]['model']}")
+print()
+print(f"The optimal object according to penalty possibilistic is {t[0]['model']}")
+print()
+
