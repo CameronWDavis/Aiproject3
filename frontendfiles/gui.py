@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, filedialog
 
-
 # Define a dictionary to store the file paths and their corresponding file fields
 file_paths = {}
 
@@ -78,18 +77,115 @@ tab2 = ttk.Frame(notebook)
 notebook.add(tab2, text="Output")
 
 
-def update_output_text():
-    output_text.delete('1.0', tk.END)  # clear the text field
-    output_text.insert(tk.END, "output")
 
 
-# Add some widgets to the second tab
-tk.Button(tab2, text="Update Text", command=update_output_text).pack()
 
 
-output_text = tk.Text(tab2, height=10)
-output_text.pack(fill='both', expand=True, padx=5, pady=5)
-output_text.insert(tk.END, "HEllo my name is lol")
+
+#this is a label and text box for the possible object
+possibleobj_label = tk.Label(tab2,text="Possible Object").grid(row=1,column=1)
+possibleobj_text = tk.Text(tab2, height=20, width=20)
+possibleobj_text.grid(row=2,column=1, padx=15, pady=15)
+
+
+
+
+
+#this is a label and text box for the penalty object
+penalty_label = tk.Label(tab2,text="Penalty Object").grid(row=1,column=2)
+
+penalty_text = tk.Text(tab2, height=20, width=20)
+penalty_text.grid(row=2,column=2, padx=15, pady=15)
+
+
+
+
+
+#this is a label and text box for the optimal object penalty
+Optimalpenalty_label = tk.Label(tab2,text="Optimal Object Penalty").grid(row=1, column=3)
+
+Optimalpenalty_text = tk.Text(tab2, height=20, width=20)
+Optimalpenalty_text.grid(row=2,column=3,padx=15, pady=15)
+
+
+#this is a label and text box for the possibilistic  logic
+possibilic_label = tk.Label(tab2,text="Possibilistic  logic").grid(row=1,column=4)
+
+possibilic_text = tk.Text(tab2, height=20, width=20)
+possibilic_text.grid(row=2,column=4,padx=15,pady=15)
+
+
+
+#this is a label and text box for the Optimal Object possibilistic  logic
+optimal_possibilic_label = tk.Label(tab2,text="Optimal Object Possibilistic").grid(row=3,column=1)
+optimal_possibilic_text = tk.Text(tab2, height=20, width=20)
+optimal_possibilic_text.grid(row=4,column=1,pady=15,padx=15)
+
+
+#this is a label and text box for the Qualitative logic
+qualitative_label = tk.Label(tab2,text="Qualitative Logic").grid(row=3,column=2)
+qualitative_text = tk.Text(tab2, height=20, width=20)
+qualitative_text.grid(row=4,column=2,pady=15,padx=15)
+
+#this is a label and text box for the Optimal Object Qualitative logic
+optimal_qualitative_label = tk.Label(tab2,text="Optimal Object Qualitative").grid(row=3,column=3)
+optimal_qualitative_text = tk.Text(tab2, height=20, width=20)
+optimal_qualitative_text.grid(row=4,column=3,pady=15,padx=15)
+
+
+#this is a label and text box for the exemplification
+exemplification_label = tk.Label(tab2,text="Exemplification").grid(row=3,column=4)
+exemplificaiton_text = tk.Text(tab2, height=20, width=20)
+exemplificaiton_text.grid(row=4,column=4,pady=15,padx=15)
+
+
+def updateOne():
+    possibleobj_text.delete('1.0', tk.END)
+    possibleobj_text.insert(tk.END, "This is connected to the existence text box ")
+
+
+def showExemplificaiton():
+    penalty_text.delete('1.0', tk.END)
+    possibilic_text.delete('1.0', tk.END)
+    qualitative_text.delete('1.0', tk.END)
+    exemplificaiton_text.delete('1.0', tk.END)
+    penalty_text.insert(tk.END, "This is the exemptButton")
+    possibilic_text.insert(tk.END, "This is the exemptButton")
+    qualitative_text.insert(tk.END, "This is the exemptButton")
+    exemplificaiton_text.insert(tk.END, "This is the exemptButton")
+
+def showOptimization():
+    Optimalpenalty_text.delete('1.0', tk.END)
+    optimal_possibilic_text.delete('1.0', tk.END)
+    optimal_qualitative_text.delete('1.0', tk.END)
+    Optimalpenalty_text.insert(tk.END, "This is the optimization")
+    optimal_possibilic_text.insert(tk.END, "This is the optimization")
+    optimal_qualitative_text.insert(tk.END, "This is the optimization")
+
+def show_omni_optimizaiton():
+    Optimalpenalty_text.delete('1.0', tk.END)
+    optimal_possibilic_text.delete('1.0', tk.END)
+    optimal_qualitative_text.delete('1.0', tk.END)
+    Optimalpenalty_text.insert(tk.END, "This is the omni-optimization")
+    optimal_possibilic_text.insert(tk.END, "This is the omni-ptimization")
+    optimal_qualitative_text.insert(tk.END, "This is the omni-optimization")
+
+#this is the button and label for the exemplification output
+exempButton = tk.Button(tab2, text= 'Exemplification', bd = 5,command=showExemplificaiton).grid(row=5,column=2,pady=15,padx=15)
+
+
+#this is the existance button
+existenceButton = tk.Button(tab2, text= 'Existance', bd = 5,command=updateOne).grid(row=5,column=1,padx=15,pady=15)
+
+#this is the optimization button
+optimizationButton = tk.Button(tab2, text= 'Optimization', bd = 5,command=showOptimization).grid(row=5,column=3,padx=15,pady=15)
+
+#this is the Omni-Optimization
+omniOptimizationButton = tk.Button(tab2, text= 'Omni-Optimizaiton', bd = 5,command=show_omni_optimizaiton).grid(row=5,column=4,padx=15,pady=5)
+
+
+
+
 
 # Start the main loop
 root.mainloop()
