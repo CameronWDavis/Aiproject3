@@ -31,6 +31,7 @@ def updateOne():
         possibleobj_text.insert(tk.END, i)
         possibleobj_text.insert(tk.END, '\n')
         x = x + 1
+    possibleobj_text.config(state='disabled')
 
 
 def showExemplificaiton():
@@ -285,11 +286,13 @@ def showOptimization():
     optimal_possibilic_text.delete('1.0', tk.END)
     optimal_qualitative_text.delete('1.0', tk.END)
 
-    Optimalpenalty_text.insert(tk.END, f"{dk.t[0]['model']}")
+    Optimalpenalty_text.insert(tk.END, f"{' '.join(map(str, dk.t[0]['model']))}\n")
 
-    optimal_possibilic_text.insert(tk.END, f"{dk.k[0]['model']}")
-
-    optimal_qualitative_text.insert(tk.END, f"{dk.best_set_optimal[0]}")
+    optimal_possibilic_text.insert(tk.END, f"{' '.join(map(str, dk.k[0]['model']))}\n")
+    # f"{' '.join(map(str, dk.best_set_optimal[0]))}\n"
+    f"{' '.join(map(str, list(dk.best_set_optimal)[0]))}\n"
+    # optimal_qualitative_text.insert(tk.END, f"{dk.best_set_optimal[0]}")
+    optimal_qualitative_text.insert(tk.END, f"{' '.join(map(str, list(dk.best_set_optimal)[0]))}\n")
 
 
 def show_omni_optimizaiton():
@@ -307,23 +310,28 @@ def show_omni_optimizaiton():
         print(z)
         print(type(z))
         if int(z['Total']) == int(optimalPen):
-            Optimalpenalty_text.insert(tk.END, f" {z['model']}\n")
+            # Optimalpenalty_text.insert(tk.END, f" {z['model']}\n")
+            Optimalpenalty_text.insert(tk.END, f"{' '.join(map(str, z['model']))}\n")
             print(z['model'])
+    # Optimalpenalty_text.config(state='disabled')
 
     optimalPoss = dk.k[0]['Total']
 
     for z in dk.k:
         # for f in z:
         if int(z['Total']) == int(optimalPoss):
-            optimal_possibilic_text.insert(tk.END, f"{z['model']}\n")
+            # optimal_possibilic_text.insert(tk.END, f"{z['model']}\n")
+            optimal_possibilic_text.insert(tk.END, f"{' '.join(map(str, z['model']))}\n")
             # print(z['model'])
 
     # optimal_possibilic_text.insert(tk.END, "This is the omni-ptimization")
+    # optimal_possibilic_text.config(state='disabled')
 
     for z in dk.best_set_optimal:
-        optimal_qualitative_text.insert(tk.END, f"{z}\n")
+        optimal_qualitative_text.insert(tk.END, f"{' '.join(map(str, z))}\n")
         print("here, z")
 
+    # optimal_qualitative_text.config(state='disabled')
 
 
 # Create the main window and set its size
@@ -419,7 +427,7 @@ penalty_text = tk.Text(tab2, height=10, width=85)
 penalty_text.grid(row=2, column=2, padx=15, pady=15)
 
 # this is a label and text box for the optimal object penalty
-Optimalpenalty_label = tk.Label(tab2, text="Optimal Object Penalty").grid(row=3, column=1)
+Optimalpenalty_label = tk.Label(tab2, text="Optimal Object(s) Penalty").grid(row=3, column=1)
 
 Optimalpenalty_text = tk.Text(tab2, height=10, width=85)
 Optimalpenalty_text.grid(row=4, column=1, padx=15, pady=15)
@@ -431,7 +439,7 @@ possibilic_text = tk.Text(tab2, height=10, width=85)
 possibilic_text.grid(row=4, column=2, padx=15, pady=15)
 
 # this is a label and text box for the Optimal Object possibilistic  logic
-optimal_possibilic_label = tk.Label(tab2, text="Optimal Object Possibilistic").grid(row=5, column=1)
+optimal_possibilic_label = tk.Label(tab2, text="Optimal Object(s) Possibilistic").grid(row=5, column=1)
 optimal_possibilic_text = tk.Text(tab2, height=10, width=85)
 optimal_possibilic_text.grid(row=6, column=1, pady=15, padx=15)
 
@@ -441,7 +449,7 @@ qualitative_text = tk.Text(tab2, height=10, width=85)
 qualitative_text.grid(row=6, column=2, pady=15, padx=15)
 
 # this is a label and text box for the Optimal Object Qualitative logic
-optimal_qualitative_label = tk.Label(tab2, text="Optimal Object Qualitative").grid(row=7, column=1)
+optimal_qualitative_label = tk.Label(tab2, text="Optimal Object(s) Qualitative").grid(row=7, column=1)
 optimal_qualitative_text = tk.Text(tab2, height=10, width=85)
 optimal_qualitative_text.grid(row=8, column=1, pady=15, padx=15)
 
