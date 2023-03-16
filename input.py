@@ -1,5 +1,9 @@
 # this is used to read the attribute file and stored everything in a menu dict
-with open('ExampleCase/myAttirbute.txt', 'r') as file:
+from gui import *
+
+print(file_paths)
+with open(file_paths['file1'], 'r') as file:
+# with open("myAttirbute.txt", 'r') as file:
     contents = file.read()
 
 menu = {}
@@ -43,7 +47,8 @@ for i, (key, value) in enumerate(menu.items()):
 
 
 # this is used to read the constraints file and add everything to the clauses list
-with open('ExampleCase/myConstraints.txt', 'r') as f:
+with open(file_paths['file2'], 'r') as f:
+# with open("myConstraints.txt", 'r') as f:
     # initialize an empty list to store the clauses
     clauses = []
     # read each line in the file
@@ -78,7 +83,8 @@ with open('ExampleCase/myConstraints.txt', 'r') as f:
 preferencesPenalty = {}
 
 # Open the file and read each line
-with open('ExampleCase/myPenaltyLogic.txt', 'r') as f:
+with open(file_paths['file3'], 'r') as f:
+# with open('myPenaltyLogic.txt', 'r') as f:
     for line in f:
         # Split the line into the preference and the penalty
         items = line.strip().split(', ')
@@ -88,6 +94,9 @@ with open('ExampleCase/myPenaltyLogic.txt', 'r') as f:
             # Store the preference and the penalty in the dictionary
             preferencesPenalty[preference] = int(penalty)
 
+    # Print the preferences and penalties
+    # print("Penalty logic")
+
     # for preference, penalty in preferencesPenalty.items():
     #     print(f"{preference} = {penalty}")
 # print(preferencesPenalty)
@@ -96,7 +105,8 @@ print()
 preferencesPossibility = {}
 
 # Open the file and read each line
-with open('ExampleCase/myPossibilisticLogic.txt', 'r') as f:
+with open(file_paths['file4'], 'r') as f:
+# with open('myPossibilisticLogic.txt', 'r') as f:
     for line in f:
         # Split the line into the preference and the penalty
         items = line.strip().split(', ')
@@ -105,15 +115,18 @@ with open('ExampleCase/myPossibilisticLogic.txt', 'r') as f:
 
             # Store the preference and the penalty in the dictionary
             preferencesPossibility[preference] = float(penalty)
+    # print("Possibility logic")
     # Print the preferences and penalties
     # for preference, penalty in preferencesPossibility.items():
-    # print(f"{preference} = {penalty}")
+        # print(f"{preference} = {penalty}")
+
+
 
 # for qualitative logic:
 
-
 preferencesQualitative = []
-with open('ExampleCase/myQualititaveLogic.txt', 'r') as f:
+with open(file_paths['file5'], 'r') as f:
+# with open('myQualititaveLogic.txt', 'r') as f:
     for line in f:
         preferences = line.strip().split('BT')
         preference_list = []
@@ -122,7 +135,7 @@ with open('ExampleCase/myQualititaveLogic.txt', 'r') as f:
                 preference_list.append([preference[:preference.find('IF')].strip()])
             else:
                 preference_list.append([preference.strip()])
-        c = line.split('IF')
+        c =line.split('IF')
         condition = c[1].strip()
         preferencesQualitative.append({'preference': preference_list, 'condition': [condition], 'statement': line.rstrip()})
 

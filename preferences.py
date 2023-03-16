@@ -166,10 +166,10 @@ Possibility = []
 Qualitative = []
 
 for model in models:
-    t = preferencePenalty(model, preferencesPenalty)
+    t_normal = preferencePenalty(model, preferencesPenalty)
 
 for model in models:
-    k = preferencePossibility(model, preferencesPossibility)
+    k_normal = preferencePossibility(model, preferencesPossibility)
 
 for x, y in zip(models, modelsCNF):
     n = preferenceQualitative(y, preferencesQualitative, x)
@@ -177,12 +177,12 @@ for x, y in zip(models, modelsCNF):
 # print()
 print("Preference : Penalty Logic")
 # sorted the list with respect to the Total penalty: assending
-t = sorted(t, key=lambda x: x['Total'], reverse=False)
+t = sorted(t_normal, key=lambda x: x['Total'], reverse=False)
 print(t)
 
 print()
 print("Preference : Possibility Logic")
-k = sorted(k, key=lambda x: x['Total'], reverse=True)
+k = sorted(k_normal, key=lambda x: x['Total'], reverse=True)
 print(k)
 
 print()
@@ -228,43 +228,60 @@ for z in k:
             elif z["Total"] < f["Total"]:
                 print(f"{s[1]} is preferred to {s[0]} according to possibilistic Logic.")
             else:
-                print(f"{s[0]} is equally preferred to {s[1]} according to possibilistic Logic.", z["Total"], f["Total"])
+                print(f"{s[0]} is equally preferred to {s[1]} according to possibilistic Logic.", z["Total"],
+                      f["Total"])
 
 print()
 
-val1, val2 =0,0
+val1, val2 = 0, 0
 for z in n:
     for f in n:
         if z["model"] == s[0] and f['model'] == s[1]:
-            for key1, key2  in zip(z,f):
+            for key1, key2 in zip(z, f):
                 # Skip the 'model' key since we already printed its value
-                if key1 == 'model' or key2=='model':
+                if key1 == 'model' or key2 == 'model':
                     continue
-                if z[key1] == math.inf and f[key2]== math.inf:
+                if z[key1] == math.inf and f[key2] == math.inf:
                     continue
-                if z[key1]!= math.inf and f[key2]==math.inf:
-                    val1+=1
-                if z[key1]== math.inf and f[key2]!=math.inf:
-                    val2+=1
-                if z[key1] <f[key2]:
-                    val1+=1
+                if z[key1] != math.inf and f[key2] == math.inf:
+                    val1 += 1
+                if z[key1] == math.inf and f[key2] != math.inf:
+                    val2 += 1
+                if z[key1] < f[key2]:
+                    val1 += 1
                 if z[key1] > f[key2]:
                     val2 += 1
 
-if val1 <val2:
+if val1 < val2:
     print(f"{s[1]} is preferred to {s[0]} according to qualitative Logic.")
-elif val1>val2:
+elif val1 > val2:
     print(f"{s[0]} is preferred to {s[1]} according to qualitative Logic.")
-elif val1== val2:
+elif val1 == val2:
     print(f"{s[0]} is equally preferred to {s[1]} according to qualitative Logic.", val1, val2)
 else:
     print(f"{s[0]} and {s[1]} are incomparable according to qualitative Logic.")
 
 print()
 
-
 print(f"The optimal object according to penalty Logic is {t[0]['model']}")
 print()
 print(f"The optimal object according to penalty possibilistic is {t[0]['model']}")
 print()
+
+
+# optimalPen = t[0]['Total']
+#
+# for z in t:
+#     for f in z:
+#         if f["Total"] == optimalPen:
+#             print(f['model'])
+
+
+
+# def output():
+#     for i in n:
+#         print(i)
+#     return n
+
+
 
