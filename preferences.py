@@ -283,5 +283,22 @@ print()
 #         print(i)
 #     return n
 
+best_set_optimal= []
+best = math.inf
+cur = 0
+for z in n:
+    cur = 0
+    for key1 in z:
+            if key1 == 'model':
+                print(key1)
+                continue
+            if z['model']== math.inf:
+                continue
+            cur = cur + z[key1]
+            if cur < best and cur != 0:
+                best = cur
+                best_set_optimal.append(z['model'])
+            elif cur == best:
+                best_set_optimal.append(z['model'])
 
-
+print("bestset", best_set_optimal)

@@ -145,9 +145,9 @@ def tableDisplay(penalty_text, t, valu4):
     game_scroll_y.config(command=my_game.yview)
     game_scroll_x.config(command=my_game.xview)
 
-    print('length',len(t[0]))
+    print('length', len(t[0]))
 
-    h = len(t[0])-valu4
+    h = len(t[0]) - valu4
 
     # my_game['columns'] = ("model", "modelPref1", "modelPref2", "modelPref3", "modelPref4", "modelPref5",
     #                       "modelPref6", "modelPref7", "modelPref8", "modelPref9", "total")
@@ -155,11 +155,10 @@ def tableDisplay(penalty_text, t, valu4):
     # model_cols = tuple(f"modelPref{x}" for x in range(h))
     # my_game_cols = ("model",) + model_cols + ("total",)
     # my_game['columns'] = my_game_cols
-    if valu4==2:
+    if valu4 == 2:
         my_game['columns'] = ("model", *[f"modelPref{x}" for x in range(1, h + 1)], "total")
     else:
         my_game['columns'] = ("model", *[f"modelPref{x}" for x in range(1, h + 1)])
-
 
     print(my_game)
     # my_game['columns'] = ("model", f"{modelPref + str(x) if x in range(h)}", "total")
@@ -208,7 +207,7 @@ def tableDisplay(penalty_text, t, valu4):
     my_game.column("model", anchor=tk.CENTER, width=80)
     for i in range(1, h + 1):
         my_game.column(f"modelPref{i}", anchor=tk.CENTER, width=80)
-    if valu4==2:
+    if valu4 == 2:
         my_game.column("total", anchor=tk.CENTER, width=100)
 
     my_game.heading("#0", text="", anchor=tk.CENTER)
@@ -221,7 +220,7 @@ def tableDisplay(penalty_text, t, valu4):
     # for f in t:
     #     my_game.insert(parent="", index="end", text="", values=(f["model"], *[f[x] for x in range( h + 2)]))
 
-    x= 1
+    x = 1
     for i in t:
         values_list = []
         for v in i.values():
@@ -231,6 +230,7 @@ def tableDisplay(penalty_text, t, valu4):
         my_game.insert(parent='', index='end', iid=str(x), text='',
                        values=(x, *values_list))
         x = x + 1
+
 
 # def tableDisplayQualitative(penalty_text, t):
 #     game_scroll_y = tk.Scrollbar(penalty_text)
@@ -288,7 +288,8 @@ def showOptimization():
     Optimalpenalty_text.insert(tk.END, f"{dk.t[0]['model']}")
 
     optimal_possibilic_text.insert(tk.END, f"{dk.k[0]['model']}")
-    optimal_qualitative_text.insert(tk.END, "This is the optimization")
+
+    optimal_qualitative_text.insert(tk.END, f"{dk.best_set_optimal[0]}")
 
 
 def show_omni_optimizaiton():
@@ -306,7 +307,7 @@ def show_omni_optimizaiton():
         print(z)
         print(type(z))
         if int(z['Total']) == int(optimalPen):
-            Optimalpenalty_text.insert(tk.END,f" {z['model']}\n")
+            Optimalpenalty_text.insert(tk.END, f" {z['model']}\n")
             print(z['model'])
 
     optimalPoss = dk.k[0]['Total']
@@ -315,10 +316,14 @@ def show_omni_optimizaiton():
         # for f in z:
         if int(z['Total']) == int(optimalPoss):
             optimal_possibilic_text.insert(tk.END, f"{z['model']}\n")
-            print(z['model'])
+            # print(z['model'])
 
     # optimal_possibilic_text.insert(tk.END, "This is the omni-ptimization")
-    optimal_qualitative_text.insert(tk.END, "This is the omni-optimization")
+
+    for z in dk.best_set_optimal:
+        optimal_qualitative_text.insert(tk.END, f"{z}\n")
+        print("here, z")
+
 
 
 # Create the main window and set its size
@@ -445,8 +450,5 @@ exemplification_label = tk.Label(tab2, text="Exemplification").grid(row=7, colum
 exemplificaiton_text = tk.Text(tab2, height=10, width=100)
 exemplificaiton_text.grid(row=8, column=2, pady=15, padx=15)
 
-
 # Start the main loop
 root.mainloop()
-
-
