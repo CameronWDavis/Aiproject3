@@ -376,7 +376,7 @@ file_label1 = tk.Label(tab1, text="Attributes")
 file_label1.grid(row=1, column=1, pady=10)
 browse_button1 = tk.Button(tab1, text="Browse", command=lambda: browse_file(output_text1, 'file1'))
 browse_button1.grid(row=2, column=1, pady=10)
-output_text1 = tk.Text(tab1, height=10, width=50, state='disabled')
+output_text1 = tk.Text(tab1, height=20, width=50, state='disabled')
 output_text1.grid(row=3, column=1, pady=10)
 
 # Create the second file browse button and output field
@@ -384,7 +384,7 @@ file_label2 = tk.Label(tab1, text="Constraints")
 file_label2.grid(row=1, column=2, pady=10)
 browse_button2 = tk.Button(tab1, text="Browse", command=lambda: browse_file(output_text2, 'file2'))
 browse_button2.grid(row=2, column=2, pady=10)
-output_text2 = tk.Text(tab1, height=10, width=50, state='disabled')
+output_text2 = tk.Text(tab1, height=20, width=50, state='disabled')
 output_text2.grid(row=3, column=2, pady=10)
 
 # Create the third file browse button and output field
@@ -392,7 +392,7 @@ file_label3 = tk.Label(tab1, text="Penalty logic")
 file_label3.grid(row=1, column=3, pady=10)
 browse_button3 = tk.Button(tab1, text="Browse", command=lambda: browse_file(output_text3, 'file3'))
 browse_button3.grid(row=2, column=3, pady=10)
-output_text3 = tk.Text(tab1, height=10, width=50, state='disabled')
+output_text3 = tk.Text(tab1, height=20, width=50, state='disabled')
 output_text3.grid(row=3, column=3, pady=10)
 
 # Create the fourth file browse button and output field
@@ -400,7 +400,7 @@ file_label4 = tk.Label(tab1, text="Possibility logic")
 file_label4.grid(row=4, column=1, pady=10)
 browse_button4 = tk.Button(tab1, text="Browse", command=lambda: browse_file(output_text4, 'file4'))
 browse_button4.grid(row=5, column=1, pady=10)
-output_text4 = tk.Text(tab1, height=10, width=50, state='disabled')
+output_text4 = tk.Text(tab1, height=20, width=50, state='disabled')
 output_text4.grid(row=6, column=1, pady=10)
 
 # Create the fifth file browse button and output field
@@ -408,7 +408,7 @@ file_label5 = tk.Label(tab1, text="Qualitative logic")
 file_label5.grid(row=4, column=2, pady=10)
 browse_button5 = tk.Button(tab1, text="Browse", command=lambda: browse_file(output_text5, 'file5'))
 browse_button5.grid(row=5, column=2, pady=10)
-output_text5 = tk.Text(tab1, height=10, width=50, state='disabled')
+output_text5 = tk.Text(tab1, height=20, width=50, state='disabled')
 output_text5.grid(row=6, column=2, pady=10)
 
 # Create the second tab and add it to the notebook
@@ -455,7 +455,7 @@ optimal_qualitative_text.grid(row=8, column=1, pady=15, padx=15)
 
 # this is a label and text box for the exemplification
 exemplification_label = tk.Label(tab2, text="Exemplification").grid(row=7, column=2)
-exemplificaiton_text = tk.Text(tab2, height=10, width=100)
+exemplificaiton_text = tk.Text(tab2, height=10, width=85)
 exemplificaiton_text.grid(row=8, column=2, pady=15, padx=15)
 
 # Start the main loop
