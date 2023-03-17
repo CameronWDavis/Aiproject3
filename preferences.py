@@ -84,7 +84,7 @@ def preferencePossibility(model, preference_possibility):
                 break
 
         # calculate the tolerance for the model for the current preference
-        preference_penalty_value = (1 - tolerance) if not satisfied else 1
+        preference_penalty_value = round((1 - tolerance),1) if not satisfied else 1
         values.append(preference_penalty_value)
 
         total_tolerance = min(values)
@@ -108,15 +108,20 @@ def preferenceQualitative(model, preference_qualitative, modelV, ):
         v = items["preference"]
         for preference in items["preference"]:
             conditionNow = items["condition"]
+            print("conditionNow", conditionNow[0])
+            print(solve(model, transform(conditionNow)))
+
             if not solve(model, transform(conditionNow)):
+                x[items["statement"]] = math.inf
                 # v = items["preference"]
-                break
+                continue
 
             if solve(model, transform(preference)):
                 satisfaction = items["preference"].index(preference) + 1
+                x[items["statement"]] = satisfaction
             # print(
             #     f"Satisfaction for model O{to_subscript(assign_binary(model))} and preference '{preference}' and condition {conditionNow}: {satisfaction}")
-        x[items["statement"]] = satisfaction
+
     Qualitative.append(x)
     # print(
     #     f"Satisfaction for model O{to_subscript(assign_binary(model))} and preference '{preference}' and condition {conditionNow}: {satisfaction}")
@@ -127,6 +132,9 @@ def preferenceQualitative(model, preference_qualitative, modelV, ):
 
 def transform(model):
     clausesV = []
+    # print("model", model[0])
+    if model[0] == "":
+        return 0
     for pref in model:
         pref = pref.strip()
         # split preference string by 'OR'
@@ -268,7 +276,6 @@ print()
 print(f"The optimal object according to penalty possibilistic is {t[0]['model']}")
 print()
 
-
 # optimalPen = t[0]['Total']
 #
 # for z in t:
@@ -277,28 +284,27 @@ print()
 #             print(f['model'])
 
 
-
 # def output():
 #     for i in n:
 #         print(i)
 #     return n
 
-best_set_optimal= set()
+best_set_optimal = set()
 best = math.inf
 cur = 0
 for z in n:
     cur = 0
     for key1 in z:
-            if key1 == 'model':
-                print(key1)
-                continue
-            if z['model']== math.inf:
-                continue
-            cur = cur + z[key1]
-            if cur < best and cur != 0:
-                best = cur
-                best_set_optimal.add(tuple(z['model']))
-            elif cur == best:
-                best_set_optimal.add(tuple(z['model']))
+        if key1 == 'model':
+            print(key1)
+            continue
+        if z['model'] == math.inf:
+            continue
+        cur = cur + z[key1]
+        if cur < best and cur != 0:
+            best = cur
+            best_set_optimal.add(tuple(z['model']))
+        elif cur == best:
+            best_set_optimal.add(tuple(z['model']))
 
 print("bestset", best_set_optimal)

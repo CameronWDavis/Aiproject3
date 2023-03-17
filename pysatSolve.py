@@ -69,10 +69,14 @@ with Solver(bootstrap_with=cnf) as solver:
 
 # this method solve the satisfiability
 def solve(model, conditions):
-    conditions.extend([[-x, x] for x in range(1, len(menu) + 1)])
-    # print("the clauses is", conditions)
-    cnf1 = CNF(from_clauses=conditions)
-    # print(model)
-    with Solver(bootstrap_with=cnf1) as solver1:
-        #  call the solver for this formula:
-        return solver1.solve(assumptions=model)
+    if conditions == 0:
+        return True
+    else:
+
+        conditions.extend([[-x, x] for x in range(1, len(menu) + 1)])
+        # print("the clauses is", conditions)
+        cnf1 = CNF(from_clauses=conditions)
+        # print(model)
+        with Solver(bootstrap_with=cnf1) as solver1:
+            #  call the solver for this formula:
+            return solver1.solve(assumptions=model)
