@@ -1,10 +1,9 @@
 # this is used to read the attribute file and stored everything in a menu dict
 from gui import *
 
-print(file_paths)
-with open(file_paths['file1'], 'r') as file:
-# with open("myAttirbute.txt", 'r') as file:
-    contents = file.read()
+print(field_contents)
+# with open(field_contents['file1'], 'r') as file:
+contents = field_contents['file1']
 
 menu = {}
 for line in contents.split('\n'):
@@ -43,25 +42,21 @@ for i, (key, value) in enumerate(menu.items()):
         # print(value, "values")
         original_dict[item] = (i + 1) if item == value[0] else -(i + 1)
 
-# print(original_dict)
-
+print(original_dict)
 
 # this is used to read the constraints file and add everything to the clauses list
-with open(file_paths['file2'], 'r') as f:
-# with open("myConstraints.txt", 'r') as f:
-    # initialize an empty list to store the clauses
-    clauses = []
-    # read each line in the file
-    for line in f:
-        # remove the newline character
-        line = line.strip()
-        # split the line by 'OR'
+# with open(field_contents['file2'], 'r') as f:
+f = field_contents['file2']
+clauses = []
+for line in f.split('\n'):
+    print("line:", line)
+    # remove the newline character
+    line = line.strip()
+    if line:
         tokens = line.split('OR')
-        # initialize an empty list to store the literals
         literals = []
         # iterate over the tokens
         for token in tokens:
-            # remove whitespace
             token = token.strip()
             # check if the token starts with 'NOT'
             if token.startswith('NOT'):
@@ -72,6 +67,7 @@ with open(file_paths['file2'], 'r') as f:
             else:
                 # look up the integer value of the literal in the dictionary
                 value = original_dict[token]
+                print(value)
             # add the literal to the list
             literals.append(value)
         # add the clause to the list of clauses
@@ -83,31 +79,28 @@ with open(file_paths['file2'], 'r') as f:
 preferencesPenalty = {}
 
 # Open the file and read each line
-with open(file_paths['file3'], 'r') as f:
+# with open(field_contents['file3'], 'r') as f:
+
+f = field_contents['file3']
 # with open('myPenaltyLogic.txt', 'r') as f:
-    for line in f:
+for line in f.split('\n'):
+    if line.strip():  # check if the line is not empty
         # Split the line into the preference and the penalty
         items = line.strip().split(', ')
         if len(items) == 2:
             preference, penalty = items
-
             # Store the preference and the penalty in the dictionary
             preferencesPenalty[preference] = int(penalty)
 
-    # Print the preferences and penalties
-    # print("Penalty logic")
-
-    # for preference, penalty in preferencesPenalty.items():
-    #     print(f"{preference} = {penalty}")
-# print(preferencesPenalty)
 print()
 # for possibility logic
 preferencesPossibility = {}
 
 # Open the file and read each line
-with open(file_paths['file4'], 'r') as f:
-# with open('myPossibilisticLogic.txt', 'r') as f:
-    for line in f:
+# with open(field_contents['file4'], 'r') as f:
+f = field_contents['file4']
+for line in f.split('\n'):
+    if line.strip():
         # Split the line into the preference and the penalty
         items = line.strip().split(', ')
         if len(items) == 2:
@@ -115,19 +108,15 @@ with open(file_paths['file4'], 'r') as f:
 
             # Store the preference and the penalty in the dictionary
             preferencesPossibility[preference] = float(penalty)
-    # print("Possibility logic")
-    # Print the preferences and penalties
-    # for preference, penalty in preferencesPossibility.items():
-        # print(f"{preference} = {penalty}")
-
-
 
 # for qualitative logic:
 
 preferencesQualitative = []
-with open(file_paths['file5'], 'r') as f:
-# with open('myQualititaveLogic.txt', 'r') as f:
-    for line in f:
+# with open(field_contents['file5'], 'r') as f:
+f = field_contents['file5']
+for line in f.split('\n'):
+    print("line preference:", line)
+    if line.strip():
         preferences = line.strip().split('BT')
         preference_list = []
         for preference in preferences:
@@ -135,11 +124,14 @@ with open(file_paths['file5'], 'r') as f:
                 preference_list.append([preference[:preference.find('IF')].strip()])
             else:
                 preference_list.append([preference.strip()])
-        c =line.split('IF')
+        c = line.split('IF')
         condition = c[1].strip()
-        preferencesQualitative.append({'preference': preference_list, 'condition': [condition], 'statement': line.rstrip()})
+        preferencesQualitative.append(
 
-# print(preferencesQualitative)
+            {'preference': preference_list, 'condition': [condition], 'statement': line.rstrip()})
+
+print(preferencesQualitative)
+
 
 def assign_binary(lst):
     binary_digits = [1 if val >= 0 else 0 for val in lst]

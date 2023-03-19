@@ -39,19 +39,12 @@ def preferencePenalty(model, preference_penalty):
         if not satisfied:
             # the preference is not satisfied, add its penalty to the total
             total_penalty += penalty
-
-        # calculate the penalty for the model for the current preference
         preference_penalty_value = penalty if not satisfied else 0
-        # '0'f"{to_subscript(assign_binary(y))}"
-        # x = {"model": model, preference: preference_penalty}
         x[preference] = preference_penalty_value
-        # print(f"Penalty for model '{model}' and preference '{preference}': {preference_penalty_value}")
 
     # print the total penalty for the model
     x["Total"] = total_penalty
     Penalty.append(x)
-    # print(f"Total penalty for the model '{model}': {total_penalty}")
-    # print()
     return Penalty
 
 
@@ -84,7 +77,7 @@ def preferencePossibility(model, preference_possibility):
                 break
 
         # calculate the tolerance for the model for the current preference
-        preference_penalty_value = round((1 - tolerance),1) if not satisfied else 1
+        preference_penalty_value = round((1 - tolerance), 1) if not satisfied else 1
         values.append(preference_penalty_value)
 
         total_tolerance = min(values)
@@ -100,7 +93,7 @@ def preferencePossibility(model, preference_possibility):
 
 
 def preferenceQualitative(model, preference_qualitative, modelV, ):
-    satisfaction = math.inf
+    # satisfaction = math.inf
     x = {}
     x["model"] = modelV
 
@@ -108,25 +101,17 @@ def preferenceQualitative(model, preference_qualitative, modelV, ):
         v = items["preference"]
         for preference in items["preference"]:
             conditionNow = items["condition"]
-            print("conditionNow", conditionNow[0])
-            print(solve(model, transform(conditionNow)))
+            # print("conditionNow", conditionNow[0])
+            # print(solve(model, transform(conditionNow)))
 
-            if not solve(model, transform(conditionNow)):
-                x[items["statement"]] = math.inf
-                # v = items["preference"]
-                continue
+            x[items["statement"]] = math.inf
+            if  solve(model, transform(conditionNow)):
+                if solve(model, transform(preference)):
+                    satisfaction = items["preference"].index(preference) + 1
 
-            if solve(model, transform(preference)):
-                satisfaction = items["preference"].index(preference) + 1
-                x[items["statement"]] = satisfaction
-            # print(
-            #     f"Satisfaction for model O{to_subscript(assign_binary(model))} and preference '{preference}' and condition {conditionNow}: {satisfaction}")
-
+                    x[items["statement"]] = satisfaction
+                    break
     Qualitative.append(x)
-    # print(
-    #     f"Satisfaction for model O{to_subscript(assign_binary(model))} and preference '{preference}' and condition {conditionNow}: {satisfaction}")
-    # print(
-    #     f"Satisfaction for model O{to_subscript(assign_binary(model))} and preference '{v}' and condition {conditionNow}: {satisfaction}")
     return Qualitative
 
 
@@ -186,26 +171,26 @@ for x, y in zip(models, modelsCNF):
 print("Preference : Penalty Logic")
 # sorted the list with respect to the Total penalty: assending
 t = sorted(t_normal, key=lambda x: x['Total'], reverse=False)
-print(t)
+# print(t)
 
 print()
 print("Preference : Possibility Logic")
 k = sorted(k_normal, key=lambda x: x['Total'], reverse=True)
-print(k)
+# print(k)
 
 print()
 print("Preference : Qualitative Logic")
-# n = sorted(n, key=lambda x: x['Total'], reverse=False)
-print(n)
+# # n = sorted(n, key=lambda x: x['Total'], reverse=False)
+# print(n)
 
-print()
-print("Preference : Penalty Logic")
-for i in t:
-    print(i)
-print()
-print("Preference : Possibility Logic")
-for i in k:
-    print(i)
+# print()
+# print("Preference : Penalty Logic")
+# for i in t:
+#     print(i)
+# print()
+# print("Preference : Possibility Logic")
+# for i in k:
+#     print(i)
 print()
 print("Preference : Qualitative Logic")
 for i in n:

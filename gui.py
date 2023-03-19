@@ -5,7 +5,7 @@ from tkinter import ttk, filedialog, CENTER, BOTTOM, RIGHT
 from tkinter.ttk import Scrollbar
 
 # Define a dictionary to store the file paths and their corresponding file fields
-file_paths = {}
+field_contents = {}
 
 
 # Define a function to be called when a "Browse" button is clicked
@@ -13,13 +13,34 @@ def browse_file(output_field, file_field):
     file_path = filedialog.askopenfilename()
     if file_path:
         # Add the file path to the dictionary with the corresponding file field as the key
-        file_paths[file_field] = file_path
+        # field_contents[file_field] = file_path
         with open(file_path, 'r') as file:
             file_contents = file.read()
             output_field.config(state='normal')  # enable the output field
-            output_field.delete('1.0', tk.END)  # clear the output field
-            output_field.insert(tk.END, file_contents)
+            # output_field.delete('1.0', tk.END)  # clear the output field
+            if not output_field.get('1.0', 'end-1c').strip():
+                output_field.insert(tk.END, file_contents)
+            else:
+                output_field.insert(tk.END, "\n")
+                output_field.insert(tk.END, file_contents)
+
+            field_contents[file_field] = output_field.get('1.0', 'end')
+
             output_field.config(state='disabled')  # disable the output field
+
+
+# Define a function to be called when the "Submit" button is clicked
+def submit(output_field, input_field1, file_field):
+    output_field.config(state='normal')  # enable the output field
+    # output_field.delete('1.0', tk.END)  # clear the output field
+    if not output_field.get('1.0', 'end-1c').strip():
+        output_field.insert(tk.END, f"{input_field1.get()}")
+    else:
+        output_field.insert(tk.END, f"\n{input_field1.get()}")
+
+    field_contents[file_field] = output_field.get('1.0', 'end')
+
+    output_field.config(state='disabled')  # disable the output field
 
 
 def updateOne():
@@ -162,47 +183,6 @@ def tableDisplay(penalty_text, t, valu4):
         my_game['columns'] = ("model", *[f"modelPref{x}" for x in range(1, h + 1)])
 
     print(my_game)
-    # my_game['columns'] = ("model", f"{modelPref + str(x) if x in range(h)}", "total")
-
-    # my_game.column("#0", width=0)
-    # my_game.column("model", anchor=tk.CENTER, width=80)
-    # my_game.column("modelPref1", anchor=tk.CENTER, width=80)
-    # my_game.column("modelPref2", anchor=tk.CENTER, width=80)
-    # my_game.column("modelPref3", anchor=tk.CENTER, width=80)
-    # my_game.column("modelPref4", anchor=tk.CENTER, width=80)
-    # my_game.column("modelPref5", anchor=tk.CENTER, width=80)
-    # my_game.column("modelPref6", anchor=tk.CENTER, width=80)
-    # my_game.column("modelPref7", anchor=tk.CENTER, width=80)
-    # my_game.column("modelPref8", anchor=tk.CENTER, width=80)
-    # my_game.column("modelPref9", anchor=tk.CENTER, width=80)
-    # my_game.column("total", anchor=tk.CENTER, width=100)
-    #
-    # my_game.heading("#0", text="", anchor=tk.CENTER)
-    # my_game.heading("model", text="Obj", anchor=tk.CENTER)
-    # my_game.heading("modelPref1", text="Pref1", anchor=tk.CENTER)
-    # my_game.heading("modelPref2", text="Pref2", anchor=tk.CENTER)
-    # my_game.heading("modelPref3", text="Pref3", anchor=tk.CENTER)
-    # my_game.heading("modelPref4", text="Pref4", anchor=tk.CENTER)
-    # my_game.heading("modelPref5", text="Pref5", anchor=tk.CENTER)
-    # my_game.heading("modelPref6", text="Pref6", anchor=tk.CENTER)
-    # my_game.heading("modelPref7", text="Pref7", anchor=tk.CENTER)
-    # my_game.heading("modelPref8", text="Pref8", anchor=tk.CENTER)
-    # my_game.heading("modelPref9", text="Pref9", anchor=tk.CENTER)
-    # my_game.heading("total", text="Total", anchor=tk.CENTER)
-    # x = 1
-    #
-    # for i in t:
-    #     values_list = []
-    #     for v in i.values():
-    #         values_list.append(v)
-    #     values_list.pop(0)
-    #
-    #     my_game.insert(parent='', index='end', iid=str(x), text='',
-    #                    values=(x, *values_list))
-    #     x = x + 1
-
-    # my_game.insert(parent='', index='end', iid=0, text='',
-    #                values=('1', 'Ninja', '101', 'Oklahoma', 'Moore', 'Moore', 'Moore', 'Moore', 'Moore', 20))
 
     my_game.column("#0", width=0)
     my_game.column("model", anchor=tk.CENTER, width=80)
@@ -232,53 +212,6 @@ def tableDisplay(penalty_text, t, valu4):
                        values=(x, *values_list))
         x = x + 1
 
-
-# def tableDisplayQualitative(penalty_text, t):
-#     game_scroll_y = tk.Scrollbar(penalty_text)
-#     game_scroll_y.grid(row=0, column=1, sticky='ns')
-#
-#     game_scroll_x = tk.Scrollbar(penalty_text, orient='horizontal')
-#     game_scroll_x.grid(row=1, column=0, sticky='ew')
-#
-#     my_game = ttk.Treeview(penalty_text, yscrollcommand=game_scroll_y.set, xscrollcommand=game_scroll_x.set, height=7)
-#
-#     my_game.grid(row=0, column=0, sticky='nsew')
-#
-#     game_scroll_y.config(command=my_game.yview)
-#     game_scroll_x.config(command=my_game.xview)
-#
-#     my_game['columns'] = ("model", "modelPref1", "modelPref2", "modelPref3", "modelPref4",)
-#
-#     my_game.column("#0", width=0)
-#     my_game.column("model", anchor=tk.CENTER, width=80)
-#     my_game.column("modelPref1", anchor=tk.CENTER, width=80)
-#     my_game.column("modelPref2", anchor=tk.CENTER, width=80)
-#     my_game.column("modelPref3", anchor=tk.CENTER, width=80)
-#     my_game.column("modelPref4", anchor=tk.CENTER, width=80)
-#
-#     my_game.heading("#0", text="", anchor=tk.CENTER)
-#     my_game.heading("model", text="Obj", anchor=tk.CENTER)
-#     my_game.heading("modelPref1", text="Pref1", anchor=tk.CENTER)
-#     my_game.heading("modelPref2", text="Pref2", anchor=tk.CENTER)
-#     my_game.heading("modelPref3", text="Pref3", anchor=tk.CENTER)
-#     my_game.heading("modelPref4", text="Pref4", anchor=tk.CENTER)
-#
-#     x = 1
-#
-#     for i in t:
-#         values_list = []
-#         for v in i.values():
-#             values_list.append(v)
-#         values_list.pop(0)
-#
-#         my_game.insert(parent='', index='end', iid=str(x), text='',
-#                        values=(x, *values_list))
-#         x = x + 1
-#
-#     # my_game.insert(parent='', index='end', iid=0, text='',
-#     #                values=('1', 'Ninja', '101', 'Oklahoma', 'Moore', 'Moore', 'Moore', 'Moore', 'Moore', 20))
-
-
 def showOptimization():
     import preferences as dk
 
@@ -286,13 +219,18 @@ def showOptimization():
     optimal_possibilic_text.delete('1.0', tk.END)
     optimal_qualitative_text.delete('1.0', tk.END)
 
-    Optimalpenalty_text.insert(tk.END, f"{' '.join(map(str, dk.t[0]['model']))}\n")
+    # f"{dk.models.index(dk.t[0]['model'])}"
+    index = dk.models.index(dk.t[0]['model'])
+    Optimalpenalty_text.insert(tk.END, f"{index + 1}")
+    Optimalpenalty_text.insert(tk.END, f"-  {' '.join(map(str, dk.t[0]['model']))}\n")
 
-    optimal_possibilic_text.insert(tk.END, f"{' '.join(map(str, dk.k[0]['model']))}\n")
-    # f"{' '.join(map(str, dk.best_set_optimal[0]))}\n"
-    f"{' '.join(map(str, list(dk.best_set_optimal)[0]))}\n"
-    # optimal_qualitative_text.insert(tk.END, f"{dk.best_set_optimal[0]}")
-    optimal_qualitative_text.insert(tk.END, f"{' '.join(map(str, list(dk.best_set_optimal)[0]))}\n")
+    index = dk.models.index(dk.k[0]['model'])
+    optimal_possibilic_text.insert(tk.END, f"{index + 1}")
+    optimal_possibilic_text.insert(tk.END, f"-  {' '.join(map(str, dk.k[0]['model']))}\n")
+
+    index = dk.models.index(list(dk.best_set_optimal)[0])
+    optimal_qualitative_text.insert(tk.END, f"{index + 1}")
+    optimal_qualitative_text.insert(tk.END, f"-  {' '.join(map(str, list(dk.best_set_optimal)[0]))}\n")
 
 
 def show_omni_optimizaiton():
@@ -310,8 +248,10 @@ def show_omni_optimizaiton():
         print(z)
         print(type(z))
         if int(z['Total']) == int(optimalPen):
-            # Optimalpenalty_text.insert(tk.END, f" {z['model']}\n")
-            Optimalpenalty_text.insert(tk.END, f"{' '.join(map(str, z['model']))}\n")
+
+            index = dk.models.index(z['model'])
+            Optimalpenalty_text.insert(tk.END, f"{index + 1}")
+            Optimalpenalty_text.insert(tk.END, f"-  {' '.join(map(str, z['model']))}\n")
             print(z['model'])
     # Optimalpenalty_text.config(state='disabled')
 
@@ -321,14 +261,18 @@ def show_omni_optimizaiton():
         # for f in z:
         if int(z['Total']) == int(optimalPoss):
             # optimal_possibilic_text.insert(tk.END, f"{z['model']}\n")
-            optimal_possibilic_text.insert(tk.END, f"{' '.join(map(str, z['model']))}\n")
+            index = dk.models.index(z['model'])
+            optimal_possibilic_text.insert(tk.END, f"{index + 1}")
+            optimal_possibilic_text.insert(tk.END, f"-  {' '.join(map(str, z['model']))}\n")
             # print(z['model'])
 
     # optimal_possibilic_text.insert(tk.END, "This is the omni-ptimization")
     # optimal_possibilic_text.config(state='disabled')
 
     for z in dk.best_set_optimal:
-        optimal_qualitative_text.insert(tk.END, f"{' '.join(map(str, z))}\n")
+        index = dk.models.index(list(z))
+        optimal_qualitative_text.insert(tk.END, f"{index + 1}")
+        optimal_qualitative_text.insert(tk.END, f"-  {' '.join(map(str, z))}\n")
         print("here, z")
 
     # optimal_qualitative_text.config(state='disabled')
@@ -374,43 +318,72 @@ tab1.columnconfigure(3, weight=1, minsize=150)
 # Create the first file browse button and output field
 file_label1 = tk.Label(tab1, text="Attributes")
 file_label1.grid(row=1, column=1, pady=10)
-browse_button1 = tk.Button(tab1, text="Browse", command=lambda: browse_file(output_text1, 'file1'))
-browse_button1.grid(row=2, column=1, pady=10)
-output_text1 = tk.Text(tab1, height=20, width=50, state='disabled')
-output_text1.grid(row=3, column=1, pady=10)
+
+input_field1 = tk.Entry(tab1,width=30)
+input_field1.grid(row=2, column=1 ,padx=10)
+
+browse_button1 = tk.Button(tab1, text="Upload file", command=lambda: browse_file(output_text1, 'file1'))
+browse_button1.grid(row=4, column=1, pady=10)
+output_text1 = tk.Text(tab1, height=15, width=50, state='disabled')
+output_text1.grid(row=5, column=1, pady=10)
+submit_button = tk.Button(tab1, text="Add Attribute", command=lambda: submit(output_text1, input_field1, 'file1')) # submit button
+submit_button.grid(row=3, column=1 ,padx=10)
 
 # Create the second file browse button and output field
 file_label2 = tk.Label(tab1, text="Constraints")
 file_label2.grid(row=1, column=2, pady=10)
-browse_button2 = tk.Button(tab1, text="Browse", command=lambda: browse_file(output_text2, 'file2'))
-browse_button2.grid(row=2, column=2, pady=10)
-output_text2 = tk.Text(tab1, height=20, width=50, state='disabled')
-output_text2.grid(row=3, column=2, pady=10)
+
+input_field2 = tk.Entry(tab1,width=30)
+input_field2.grid(row=2, column=2 ,padx=10)
+
+browse_button2 = tk.Button(tab1, text="Upload file", command=lambda: browse_file(output_text2, 'file2'))
+browse_button2.grid(row=4, column=2, pady=10)
+output_text2 = tk.Text(tab1, height=15, width=50, state='disabled')
+output_text2.grid(row=5, column=2, pady=10)
+submit_button = tk.Button(tab1, text="Add Constraint", command=lambda: submit(output_text2, input_field2, 'file2')) # submit button
+submit_button.grid(row=3, column=2,padx=10)
 
 # Create the third file browse button and output field
 file_label3 = tk.Label(tab1, text="Penalty logic")
 file_label3.grid(row=1, column=3, pady=10)
-browse_button3 = tk.Button(tab1, text="Browse", command=lambda: browse_file(output_text3, 'file3'))
-browse_button3.grid(row=2, column=3, pady=10)
-output_text3 = tk.Text(tab1, height=20, width=50, state='disabled')
-output_text3.grid(row=3, column=3, pady=10)
+
+input_field3 = tk.Entry(tab1,width=30)
+input_field3.grid(row=2, column=3, pady=10)
+
+browse_button3 = tk.Button(tab1, text="Upload file", command=lambda: browse_file(output_text3, 'file3'))
+browse_button3.grid(row=4, column=3, pady=10)
+output_text3 = tk.Text(tab1, height=15, width=50, state='disabled')
+output_text3.grid(row=5, column=3, pady=10)
+submit_button = tk.Button(tab1, text="Add Preference", command=lambda: submit(output_text3, input_field3,'file3')) # submit button
+submit_button.grid(row=3, column=3, pady=10)
 
 # Create the fourth file browse button and output field
 file_label4 = tk.Label(tab1, text="Possibility logic")
-file_label4.grid(row=4, column=1, pady=10)
-browse_button4 = tk.Button(tab1, text="Browse", command=lambda: browse_file(output_text4, 'file4'))
-browse_button4.grid(row=5, column=1, pady=10)
-output_text4 = tk.Text(tab1, height=20, width=50, state='disabled')
-output_text4.grid(row=6, column=1, pady=10)
+file_label4.grid(row=6, column=1, pady=10)
+
+input_field4 = tk.Entry(tab1,width=30)
+input_field4.grid(row=7, column=1, pady=10)
+
+browse_button4 = tk.Button(tab1, text="Upload file", command=lambda: browse_file(output_text4, 'file4'))
+browse_button4.grid(row=9, column=1, pady=10)
+output_text4 = tk.Text(tab1, height=15, width=50, state='disabled')
+output_text4.grid(row=10, column=1, pady=10)
+submit_button = tk.Button(tab1, text="Add Preference", command=lambda: submit(output_text4, input_field4, 'file4')) # submit button
+submit_button.grid(row=8, column=1, pady=10)
 
 # Create the fifth file browse button and output field
 file_label5 = tk.Label(tab1, text="Qualitative logic")
-file_label5.grid(row=4, column=2, pady=10)
-browse_button5 = tk.Button(tab1, text="Browse", command=lambda: browse_file(output_text5, 'file5'))
-browse_button5.grid(row=5, column=2, pady=10)
-output_text5 = tk.Text(tab1, height=20, width=50, state='disabled')
-output_text5.grid(row=6, column=2, pady=10)
+file_label5.grid(row=6, column=2, pady=10)
 
+input_field5 = tk.Entry(tab1,width=30)
+input_field5.grid(row=7, column=2, pady=10)
+
+browse_button5 = tk.Button(tab1, text="Upload file", command=lambda: browse_file(output_text5, 'file5'))
+browse_button5.grid(row=9, column=2, pady=10)
+output_text5 = tk.Text(tab1, height=15, width=50, state='disabled')
+output_text5.grid(row=10, column=2, pady=10)
+submit_button = tk.Button(tab1, text="Add Preference", command=lambda: submit(output_text5, input_field5, 'file5')) # submit button
+submit_button.grid(row=8, column=2, pady=10)
 # Create the second tab and add it to the notebook
 tab2 = ttk.Frame(notebook)
 notebook.add(tab2, text="Output")
