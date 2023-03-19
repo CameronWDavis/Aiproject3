@@ -283,7 +283,7 @@ for z in n:
         if key1 == 'model':
             print(key1)
             continue
-        if z['model'] == math.inf:
+        if z[key1] == math.inf:
             continue
         cur = cur + z[key1]
         if cur < best and cur != 0:

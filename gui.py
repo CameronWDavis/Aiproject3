@@ -167,8 +167,6 @@ def tableDisplay(penalty_text, t, valu4):
     game_scroll_y.config(command=my_game.yview)
     game_scroll_x.config(command=my_game.xview)
 
-    print('length', len(t[0]))
-
     h = len(t[0]) - valu4
 
     # my_game['columns'] = ("model", "modelPref1", "modelPref2", "modelPref3", "modelPref4", "modelPref5",
@@ -228,7 +226,7 @@ def showOptimization():
     optimal_possibilic_text.insert(tk.END, f"{index + 1}")
     optimal_possibilic_text.insert(tk.END, f"-  {' '.join(map(str, dk.k[0]['model']))}\n")
 
-    index = dk.models.index(list(dk.best_set_optimal)[0])
+    index = dk.models.index(list(list(dk.best_set_optimal)[0]))
     optimal_qualitative_text.insert(tk.END, f"{index + 1}")
     optimal_qualitative_text.insert(tk.END, f"-  {' '.join(map(str, list(dk.best_set_optimal)[0]))}\n")
 
