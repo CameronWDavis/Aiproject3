@@ -240,12 +240,12 @@ def show_omni_optimizaiton():
     optimalPen = dk.t[0]['Total']
     print(optimalPen)
 
-    for z in dk.t:
+    for z in dk.t_normal:
 
         # for f in z:
         print(z)
         print(type(z))
-        if int(z['Total']) == int(optimalPen):
+        if z['Total'] == optimalPen:
 
             index = dk.models.index(z['model'])
             Optimalpenalty_text.insert(tk.END, f"{index + 1}")
@@ -254,10 +254,12 @@ def show_omni_optimizaiton():
     # Optimalpenalty_text.config(state='disabled')
 
     optimalPoss = dk.k[0]['Total']
+    print(optimalPoss, "optimal Poss")
 
-    for z in dk.k:
+    for z in dk.k_normal:
         # for f in z:
-        if int(z['Total']) == int(optimalPoss):
+        print(z['Total'])
+        if z['Total'] == optimalPoss:
             # optimal_possibilic_text.insert(tk.END, f"{z['model']}\n")
             index = dk.models.index(z['model'])
             optimal_possibilic_text.insert(tk.END, f"{index + 1}")
@@ -267,11 +269,19 @@ def show_omni_optimizaiton():
     # optimal_possibilic_text.insert(tk.END, "This is the omni-ptimization")
     # optimal_possibilic_text.config(state='disabled')
 
-    for z in dk.best_set_optimal:
-        index = dk.models.index(list(z))
-        optimal_qualitative_text.insert(tk.END, f"{index + 1}")
-        optimal_qualitative_text.insert(tk.END, f"-  {' '.join(map(str, z))}\n")
-        print("here, z")
+    # for z in dk.best_set_optimal:
+    #     index = dk.models.index(list(z))
+    #     optimal_qualitative_text.insert(tk.END, f"{index + 1}")
+    #     optimal_qualitative_text.insert(tk.END, f"-  {' '.join(map(str, z))}\n")
+    #     print("here, z")
+
+    for z in dk.models:
+        s= tuple(z)
+        if s in dk.best_set_optimal:
+            index = dk.models.index(list(s))
+            optimal_qualitative_text.insert(tk.END, f"{index + 1}")
+            optimal_qualitative_text.insert(tk.END, f"-  {' '.join(map(str, s))}\n")
+            print("here, z")
 
     # optimal_qualitative_text.config(state='disabled')
 

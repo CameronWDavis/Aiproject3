@@ -77,7 +77,7 @@ def preferencePossibility(model, preference_possibility):
                 break
 
         # calculate the tolerance for the model for the current preference
-        preference_penalty_value = round((1 - tolerance), 1) if not satisfied else 1
+        preference_penalty_value =(1 - tolerance) if not satisfied else 1
         values.append(preference_penalty_value)
 
         total_tolerance = min(values)
@@ -189,8 +189,8 @@ print("Preference : Qualitative Logic")
 #     print(i)
 # print()
 # print("Preference : Possibility Logic")
-# for i in k:
-#     print(i)
+for i in k:
+    print(i)
 print()
 print("Preference : Qualitative Logic")
 for i in n:
@@ -274,22 +274,59 @@ print()
 #         print(i)
 #     return n
 
+
+# best_set_optimal = set()
+# best = math.inf
+# cur = 0
+# for z in n:
+#     cur = 0
+#     for key1 in z:
+#         if key1 == 'model':
+#             print(key1)
+#             continue
+#         if z[key1] == math.inf:
+#             continue
+#         cur = cur + z[key1]
+#         if cur < best and cur != 0:
+#             best = cur
+#             best_set_optimal.add(tuple(z['model']))
+#         elif cur == best:
+#             best_set_optimal.add(tuple(z['model']))
+
+
+# val1, val2 = 0, 0
 best_set_optimal = set()
-best = math.inf
-cur = 0
-for z in n:
-    cur = 0
-    for key1 in z:
-        if key1 == 'model':
-            print(key1)
+
+# for z in n:
+z = n[0]
+for f in n:
+    val2 = 0
+    val1 = 0
+    for key1, key2 in zip(z, f):
+        # Skip the 'model' key since we already printed its value
+        if key1 == 'model' or key2 == 'model':
             continue
-        if z[key1] == math.inf:
+        if z[key1] == math.inf and f[key2] == math.inf:
             continue
-        cur = cur + z[key1]
-        if cur < best and cur != 0:
-            best = cur
-            best_set_optimal.add(tuple(z['model']))
-        elif cur == best:
-            best_set_optimal.add(tuple(z['model']))
+        if z[key1] != math.inf and f[key2] == math.inf:
+            val1 += 1
+        if z[key1] == math.inf and f[key2] != math.inf:
+            val2 += 1
+        if z[key1] < f[key2]:
+            val1 += 1
+        if z[key1] > f[key2]:
+            val2 += 1
+    print(val1, val2, "current values")
+    if val1 > val2:
+        best_set_optimal.add(tuple(z['model']))
+    elif val1 < val2:
+        best_set_optimal.add(tuple(f['model']))
+        z=f
+    else:
+        best_set_optimal.add(tuple(z['model']))
+        best_set_optimal.add(tuple(f['model']))
+    val1 = 0
+    val2 = 0
+
 
 print("bestset", best_set_optimal)

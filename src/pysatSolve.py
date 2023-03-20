@@ -25,7 +25,7 @@ from input import *
 #     'ice-cream': -8
 # }
 
-def getModelObject(model_tested):
+def getModelObject(y):
     b = '0'f"{to_subscript(assign_binary(y))}"
     return b
 
@@ -50,7 +50,12 @@ with Solver(bootstrap_with=cnf) as solver:
 
     models = []
     modelsCNF = []
-    for m in solver.enum_models():
+
+    # since pysat doesn't order we order it in ascending order ourselves
+    k= solver.enum_models()
+    c = sorted(k, key=lambda x: assign_binary(x), reverse=False)
+    # for m in solver.enum_models():
+    for m in c:
         modelsCNF.append(m)
         model_dict = [new_dict[x] for x in m]
         models.append(model_dict)
