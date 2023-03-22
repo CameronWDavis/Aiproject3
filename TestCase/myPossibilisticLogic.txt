@@ -1,9 +1,9 @@
-rice OR Not jerk, .3
-beer AND Not jerk OR tomato AND ice-cream, .4
+rice OR NOT tomato, .3
+beer AND NOT tomato OR chocolate AND ice-cream, .4
 soup OR chicken, .2
 cabbage, .25
 cabbage AND wine, .10
-cabbage AND icecream, .1
+cabbage AND ice-cream, .1
 wine AND salad, .15
-vanilla OR icecream, .2
+vanilla OR ice-cream, .2
 vanilla, .05

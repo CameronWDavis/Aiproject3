@@ -1,0 +1,3 @@
+fish OR NOT soup AND fish OR NOT cake, .9
+NOT fish OR soup AND NOT fish OR cake, .8
+wine OR cake, .6

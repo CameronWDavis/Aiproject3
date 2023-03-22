@@ -1,0 +1,4 @@
+Appetizer: soup, salad
+Entree: fish, beef
+Drink: wine, beer
+Dissert: cake, ice-cream

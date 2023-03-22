@@ -92,7 +92,7 @@ for line in f.split('\n'):
             # Store the preference and the penalty in the dictionary
             preferencesPenalty[preference] = int(penalty)
 
-print()
+print(preferencesPenalty, "penalty")
 # for possibility logic
 preferencesPossibility = {}
 
@@ -109,6 +109,7 @@ for line in f.split('\n'):
             # Store the preference and the penalty in the dictionary
             preferencesPossibility[preference] = float(penalty)
 
+print(preferencesPossibility)
 # for qualitative logic:
 
 preferencesQualitative = []

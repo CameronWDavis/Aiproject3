@@ -1,4 +1,6 @@
-NOT noodles OR NOT wine
+NOT noodles OR vanilla
 NOT beer OR NOT cabbage
-NOT vanilla OR NOT cake
-NOT chicken
+NOT vanilla OR  ice-cream
+NOT chicken OR rice
+NOT teriyaki OR steak
+soup OR NOT ice-cream

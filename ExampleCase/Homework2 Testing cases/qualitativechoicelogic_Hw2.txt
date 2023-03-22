@@ -1,0 +1,4 @@
+wine AND soup BT NOT wine AND NOT soup IF fish
+NOT wine AND NOT soup BT wine AND soup IF NOT fish
+NOT fish BT fish IF
+soup BT NOT soup IF
