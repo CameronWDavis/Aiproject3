@@ -8,90 +8,6 @@ import re
 
 # iterate over the preferences and calculate
 
-
-# def preferencePenalty(model, preference_penalty):
-#     total_penalty = 0
-#
-#     x = {}
-#     x["model"] = model
-#     for preference, penalty in preference_penalty.items():
-#         variables = preference.split(' OR ')
-#         satisfied = False
-#         for variable in variables:
-#             # check if the variable is negated
-#             negated = False
-#             if 'Not ' in variable:
-#                 variable = variable.split('Not ')[1]
-#                 negated = True
-#             if 'AND' in variable:
-#                 var1, var2 = variable.split(' AND ')
-#                 if negated:
-#                     satisfied = not ((var1 in model) and (var2 in model))
-#                 else:
-#                     satisfied = (var1 in model) and (var2 in model)
-#             else:
-#                 if negated:
-#                     satisfied = variable not in model
-#                 else:
-#                     satisfied = variable in model
-#             if satisfied:
-#                 break
-#         if not satisfied:
-#             # the preference is not satisfied, add its penalty to the total
-#             total_penalty += penalty
-#         preference_penalty_value = penalty if not satisfied else 0
-#         x[preference] = preference_penalty_value
-#
-#     # print the total penalty for the model
-#     x["Total"] = total_penalty
-#     Penalty.append(x)
-#     return Penalty
-#
-#
-# def preferencePossibility(model, preference_possibility):
-#     total_tolerance = 0
-#     values = []
-#     x = {}
-#     x["model"] = model
-#     for preference, tolerance in preference_possibility.items():
-#         variables = preference.split(' OR ')
-#         satisfied = False
-#         for variable in variables:
-#             # check if the variable is negated
-#             negated = False
-#             if 'Not ' in variable:
-#                 variable = variable.split('Not ')[1]
-#                 negated = True
-#             if 'AND' in variable:
-#                 var1, var2 = variable.split(' AND ')
-#                 if negated:
-#                     satisfied = not ((var1 in model) and (var2 in model))
-#                 else:
-#                     satisfied = (var1 in model) and (var2 in model)
-#             else:
-#                 if negated:
-#                     satisfied = variable not in model
-#                 else:
-#                     satisfied = variable in model
-#             if satisfied:
-#                 break
-#
-#         # calculate the tolerance for the model for the current preference
-#         preference_penalty_value =(1 - tolerance) if not satisfied else 1
-#         values.append(preference_penalty_value)
-#
-#         total_tolerance = min(values)
-#         x[preference] = preference_penalty_value
-#         # print(f"Tolerance for model '{model}' and preference '{preference}': {preference_penalty_value}")
-#
-#     # print the total penalty for the model
-#     x["Total"] = total_tolerance
-#     Possibility.append(x)
-#     # print(f"Total tolerance for the model '{model}': {total_tolerance}")
-#     # print()
-#     return Possibility
-
-
 def preferencePenalty(model, preference_penalty, modelV):
     total_penalty = 0
     x = {}
@@ -157,42 +73,6 @@ def preferenceQualitative(model, preference_qualitative, modelV):
     return Qualitative
 
 
-# def transform(model):
-#     clausesV = []
-#     # print("model", model[0])
-#     if model[0] == "":
-#         return 0
-#     for pref in model:
-#         pref = pref.strip()
-#         # split preference string by 'OR'
-#         or_tokens = pref.split('OR')
-#         # initialize an empty list to store the literals
-#         literals = []
-#         # iterate over the 'OR' tokens
-#         for or_token in or_tokens:
-#             # split 'OR' token by 'AND'
-#             and_tokens = or_token.split('AND')
-#             # initialize a new list of literals for each 'AND' clause
-#             and_literals = []
-#             # iterate over the 'AND' tokens
-#             for and_token in and_tokens:
-#                 and_token = and_token.strip()
-#                 # check if the token starts with 'NOT'
-#                 if and_token.startswith('NOT'):
-#                     # get the literal name (without the 'NOT' prefix)
-#                     literal = and_token[4:]
-#                     # look up the integer value of the literal in the dictionary
-#                     value = -original_dict[literal]
-#                 else:
-#                     # look up the integer value of the literal in the dictionary
-#                     value = original_dict[and_token]
-#                 # add the literal to the list of AND literals
-#                 clausesV.append([value])
-#             literals.extend(and_literals)
-#         # print(clausesV)
-#     return clausesV
-
-
 def transform(model):
     clausesV = []
     if model[0] == "":
@@ -201,52 +81,31 @@ def transform(model):
     for model in model:
         model = model.strip()
         print(model, 'all')
-        # determine if we need to split by "OR" or "AND" first
+        # determine if "OR" or "AND" are inside the model
         if "AND" in model and "OR" in model:
-            print(model, 'verified')
-            # search for the first occurrence of "OR" and "AND" and check their positions relative to each other
-            or_index = model.index("OR")
-            and_index = model.index("AND")
-            if or_index > and_index:
-                # split by "OR" first
-                split_tokens = model.split("OR")
-                for split_token in split_tokens:
-                    # split each sub-expression by "AND"
-                    and_tokens = split_token.split("AND")
-                    and_literals = []
-                    for and_token in and_tokens:
-                        and_token = and_token.strip()
-                        if and_token.startswith("NOT"):
-                            literal = and_token[4:]
-                            value = -original_dict[literal]
-                        else:
-                            value = original_dict[and_token]
-                        and_literals.append(value)
-                    clausesV.append(and_literals)
-            else:
-                # split by "AND" first
-                split_tokens = model.split("AND")
-                for split_token in split_tokens:
-                    print(split_token, 'split')
-                    # split each sub-expression by "OR"
-                    or_tokens = split_token.split("OR")
-                    or_literals = []
-                    for or_token in or_tokens:
-                        or_token = or_token.strip()
-                        if or_token.startswith("NOT"):
-                            literal = or_token[4:]
-                            value = -original_dict[literal]
-                        else:
-                            value = original_dict[or_token]
-                        or_literals.append(value)
-                    clausesV.append(or_literals)
-                    print(clausesV)
+            # split by "AND" first
+            split_tokens = model.split("AND")
+            for split_token in split_tokens:
+                # print(split_token, 'split')
+                # split each sub-expression by "OR"
+                or_tokens = split_token.split("OR")
+                or_literals = []
+                for or_token in or_tokens:
+                    or_token = or_token.strip()
+                    if or_token.startswith("NOT"):
+                        literal = or_token[4:]
+                        value = -original_dict[literal]
+                    else:
+                        value = original_dict[or_token]
+                    or_literals.append(value)
+                clausesV.append(or_literals)
+                print(clausesV, 'AND break')
         else:
             if "OR" in model:
                 # split by "OR" first
                 split_tokens = model.split("OR")
                 for split_token in split_tokens:
-                    split_token =split_token.strip()
+                    split_token = split_token.strip()
                     if split_token.startswith("NOT"):
                         literal = split_token[4:]
                         value = -original_dict[literal]
@@ -256,7 +115,7 @@ def transform(model):
                     clausesV.append(value)
                 clausesV = [clausesV]
                 # clausesV.append(and_literals)
-                print([clausesV])
+                print(clausesV)
             else:
                 # split each expression  by "AND"
                 and_tokens = model.split("AND")
@@ -272,7 +131,7 @@ def transform(model):
                     clausesV.append([value])
             # clausesV = [clausesV]
 
-            # print([clausesV])
+            print(clausesV)
 
     return clausesV
 
@@ -391,38 +250,6 @@ print(f"The optimal object according to penalty Logic is {t[0]['model']}")
 print()
 print(f"The optimal object according to penalty possibilistic is {t[0]['model']}")
 print()
-
-# optimalPen = t[0]['Total']
-#
-# for z in t:
-#     for f in z:
-#         if f["Total"] == optimalPen:
-#             print(f['model'])
-
-
-# def output():
-#     for i in n:
-#         print(i)
-#     return n
-
-
-# best_set_optimal = set()
-# best = math.inf
-# cur = 0
-# for z in n:
-#     cur = 0
-#     for key1 in z:
-#         if key1 == 'model':
-#             print(key1)
-#             continue
-#         if z[key1] == math.inf:
-#             continue
-#         cur = cur + z[key1]
-#         if cur < best and cur != 0:
-#             best = cur
-#             best_set_optimal.add(tuple(z['model']))
-#         elif cur == best:
-#             best_set_optimal.add(tuple(z['model']))
 
 
 # val1, val2 = 0, 0

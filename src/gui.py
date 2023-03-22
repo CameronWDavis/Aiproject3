@@ -397,7 +397,7 @@ tab2 = ttk.Frame(notebook)
 notebook.add(tab2, text="Output")
 
 # this is a label and text box for the possible object
-possibleobj_label = tk.Label(tab2, text="Possible Object").grid(row=1, column=1)
+possibleobj_label = tk.Label(tab2, text="Feasible Object(s)").grid(row=1, column=1)
 possibleobj_text = tk.Text(tab2, height=10, width=85)
 possibleobj_text.grid(row=2, column=1, padx=15, pady=15)
 
