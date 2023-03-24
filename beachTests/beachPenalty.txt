@@ -7,4 +7,3 @@ towl, 20
 NOT swimtruncks AND NOT towl, 25
 volleyball AND alone, 20 
 NOT umbrella OR towl, 10
-googles AND sandles, 20
