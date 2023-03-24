@@ -5,6 +5,6 @@ umbrella AND swimtrunks, .15
 alone AND NOT swimtrunks OR NOT sunglasses AND sunblock, .3
 towl, .2
 NOT swimtruncks AND NOT towl, .25
-volleyball AND alone, .2
+volleyball AND alone, .05
 NOT umbrella OR towl, .1
-googles AND sandles, .2
+googles AND sandles, .05
