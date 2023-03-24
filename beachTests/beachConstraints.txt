@@ -1,0 +1,6 @@
+NOT googles OR volleyball
+NOT sundress OR NOT alone
+umbrella OR NOT towl
+NOT surfboard OR swimtrunks
+NOT sunhat OR NOT sandals
+barefoot OR NOT sunblock
