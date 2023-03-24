@@ -1,0 +1,10 @@
+sundress AND surfboard, 10
+swimcap, 15 
+googles AND barefoot, 7 
+umbrella AND swimtrunks, 19 
+alone AND NOT swimtrunks OR NOT sunglasses AND sunblock, 30
+towl, 20
+NOT swimtruncks AND NOT towl, 25
+volleyball AND alone, 20 
+NOT umbrella OR towl, 10
+googles AND sandles, 20
