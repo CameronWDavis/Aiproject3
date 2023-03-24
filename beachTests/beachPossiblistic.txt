@@ -1,7 +1,10 @@
-sundress AND sunblock, .5
-friends OR surfboard, .7
-swimcap, .05
-NOT barefoot OR googles AND NOT umbrella, .6
-sunhat OR swimtrunks, .3
-NOT towl AND umbrella, .8 
-sunglasses AND chair 
+sundress AND surfboard, .1
+swimcap, .25 
+googles AND barefoot, .07
+umbrella AND swimtrunks, .15 
+alone AND NOT swimtrunks OR NOT sunglasses AND sunblock, .3
+towl, .2
+NOT swimtruncks AND NOT towl, .25
+volleyball AND alone, .2
+NOT umbrella OR towl, .1
+googles AND sandles, .2
