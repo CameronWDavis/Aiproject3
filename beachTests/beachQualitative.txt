@@ -3,4 +3,4 @@ sunglasses BT googles IF sandles
 umbrella BT towl IF alone AND sundress 
 surfboard BT volleyball IF swimtruncks
 barefoot BT sandles IF swimcap
-
+alone BT friends IF surfboard
