@@ -1,0 +1,8 @@
+clothes: sundress, swimtrunks
+eyewear: sunglasses, googles
+activites: volleyball, surfboard 
+lounging: towl, chair 
+shoes: barefoot, sandals 
+social: alone, friends 
+sunprotection: sunblock, umbrella 
+hat: sunhat, swimcap 
