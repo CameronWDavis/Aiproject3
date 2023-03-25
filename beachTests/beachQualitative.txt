@@ -1,6 +1,4 @@
-friends BT alone IF volleyball
-sunglasses BT googles IF sandles
-umbrella BT towl IF alone AND sundress 
-surfboard BT volleyball IF swimtruncks
-barefoot BT sandles IF swimcap
-alone BT friends IF surfboard
+hammock BT morning IF relaxed
+surfboard BT red IF crocs
+oceanfront AND boardwalk BT cloudy AND football IF wakeboard
+sunglasses BT relaxed IF hammock
