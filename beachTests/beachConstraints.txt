@@ -2,5 +2,5 @@ NOT surfboard OR football
 stressed OR NOT oceanfront
 NOT sunglasses OR cloudy
 NOT volleyball OR wakeboard
-NOT morning OR NOT stressed
-NOT blue OR sunglasses
+NOT morning OR NOT hammock
+NOT football OR sunglasses
