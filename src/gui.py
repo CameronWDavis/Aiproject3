@@ -317,7 +317,7 @@ def show_omni_optimizaiton():
 # Create the main window and set its size
 root = tk.Tk()
 root.title("Preference APP")
-root.geometry("1650x985")
+root.geometry("1700x985")
 
 # Create a notebook widget to hold the tabs
 notebook = ttk.Notebook(root)
