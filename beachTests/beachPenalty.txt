@@ -7,4 +7,4 @@ red AND NOT oceanfront OR sandles AND relaxed, 40
 sunglasses AND football, 20
 morning OR crocs, 30
 relaxed, 20
-wakeboard AND NOT volleyball
+wakeboard AND NOT volleyball, 10
