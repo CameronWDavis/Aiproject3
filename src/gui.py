@@ -48,7 +48,11 @@ def updateOne():
     possibleobj_text.delete('1.0', tk.END)
     x = 1
     for i in ck.models:
-        possibleobj_text.insert(tk.END, f"{x}-   ")
+        if x >= 10:
+            possibleobj_text.insert(tk.END, f"{x}-  ")
+        else:
+            possibleobj_text.insert(tk.END, f"{x}-   ")
+
         possibleobj_text.insert(tk.END, i)
         possibleobj_text.insert(tk.END, '\n')
         x = x + 1
@@ -210,6 +214,7 @@ def tableDisplay(penalty_text, t, valu4):
                        values=(x, *values_list))
         x = x + 1
 
+
 def showOptimization():
     import preferences as dk
 
@@ -220,15 +225,25 @@ def showOptimization():
     # f"{dk.models.index(dk.t[0]['model'])}"
     index = dk.models.index(dk.t[0]['model'])
     Optimalpenalty_text.insert(tk.END, f"{index + 1}")
-    Optimalpenalty_text.insert(tk.END, f"-  {' '.join(map(str, dk.t[0]['model']))}\n")
+
+    if index + 1 >= 10:
+        Optimalpenalty_text.insert(tk.END, f"-  {' '.join(map(str, dk.t[0]['model']))}\n")
+    else:
+        Optimalpenalty_text.insert(tk.END, f"-   {' '.join(map(str, dk.t[0]['model']))}\n")
 
     index = dk.models.index(dk.k[0]['model'])
     optimal_possibilic_text.insert(tk.END, f"{index + 1}")
-    optimal_possibilic_text.insert(tk.END, f"-  {' '.join(map(str, dk.k[0]['model']))}\n")
+    if index + 1 >= 10:
+        optimal_possibilic_text.insert(tk.END, f"-  {' '.join(map(str, dk.k[0]['model']))}\n")
+    else:
+        optimal_possibilic_text.insert(tk.END, f"-   {' '.join(map(str, dk.k[0]['model']))}\n")
 
     index = dk.models.index(list(list(dk.best_set_optimal)[0]))
     optimal_qualitative_text.insert(tk.END, f"{index + 1}")
-    optimal_qualitative_text.insert(tk.END, f"-  {' '.join(map(str, list(dk.best_set_optimal)[0]))}\n")
+    if index + 1 > 10:
+        optimal_qualitative_text.insert(tk.END, f"-  {' '.join(map(str, list(dk.best_set_optimal)[0]))}\n")
+    else:
+        optimal_qualitative_text.insert(tk.END, f"-   {' '.join(map(str, list(dk.best_set_optimal)[0]))}\n")
 
 
 def show_omni_optimizaiton():
@@ -246,10 +261,13 @@ def show_omni_optimizaiton():
         print(z)
         print(type(z))
         if z['Total'] == optimalPen:
-
             index = dk.models.index(z['model'])
             Optimalpenalty_text.insert(tk.END, f"{index + 1}")
-            Optimalpenalty_text.insert(tk.END, f"-  {' '.join(map(str, z['model']))}\n")
+            if index+1>= 10:
+                Optimalpenalty_text.insert(tk.END, f"-  {' '.join(map(str, z['model']))}\n")
+            else:
+                Optimalpenalty_text.insert(tk.END, f"-   {' '.join(map(str, z['model']))}\n")
+
             print(z['model'])
     # Optimalpenalty_text.config(state='disabled')
 
@@ -263,7 +281,11 @@ def show_omni_optimizaiton():
             # optimal_possibilic_text.insert(tk.END, f"{z['model']}\n")
             index = dk.models.index(z['model'])
             optimal_possibilic_text.insert(tk.END, f"{index + 1}")
-            optimal_possibilic_text.insert(tk.END, f"-  {' '.join(map(str, z['model']))}\n")
+            if index+1>=10:
+                optimal_possibilic_text.insert(tk.END, f"-  {' '.join(map(str, z['model']))}\n")
+            else:
+                optimal_possibilic_text.insert(tk.END, f"-   {' '.join(map(str, z['model']))}\n")
+
             # print(z['model'])
 
     # optimal_possibilic_text.insert(tk.END, "This is the omni-ptimization")
@@ -276,11 +298,17 @@ def show_omni_optimizaiton():
     #     print("here, z")
 
     for z in dk.models:
-        s= tuple(z)
+        s = tuple(z)
         if s in dk.best_set_optimal:
             index = dk.models.index(list(s))
             optimal_qualitative_text.insert(tk.END, f"{index + 1}")
-            optimal_qualitative_text.insert(tk.END, f"-  {' '.join(map(str, s))}\n")
+            if index+1>=10:
+                optimal_qualitative_text.insert(tk.END, f"-  {' '.join(map(str, s))}\n")
+            else:
+                optimal_qualitative_text.insert(tk.END, f"-   {' '.join(map(str, s))}\n")
+
+
+
             print("here, z")
 
     # optimal_qualitative_text.config(state='disabled')
@@ -327,70 +355,75 @@ tab1.columnconfigure(3, weight=1, minsize=150)
 file_label1 = tk.Label(tab1, text="Attributes")
 file_label1.grid(row=1, column=1, pady=10)
 
-input_field1 = tk.Entry(tab1,width=30)
-input_field1.grid(row=2, column=1 ,padx=10)
+input_field1 = tk.Entry(tab1, width=30)
+input_field1.grid(row=2, column=1, padx=10)
 
 browse_button1 = tk.Button(tab1, text="Upload file", command=lambda: browse_file(output_text1, 'file1'))
 browse_button1.grid(row=4, column=1, pady=10)
 output_text1 = tk.Text(tab1, height=15, width=50, state='disabled')
 output_text1.grid(row=5, column=1, pady=10)
-submit_button = tk.Button(tab1, text="Add Attribute", command=lambda: submit(output_text1, input_field1, 'file1')) # submit button
-submit_button.grid(row=3, column=1 ,padx=10)
+submit_button = tk.Button(tab1, text="Add Attribute",
+                          command=lambda: submit(output_text1, input_field1, 'file1'))  # submit button
+submit_button.grid(row=3, column=1, padx=10)
 
 # Create the second file browse button and output field
 file_label2 = tk.Label(tab1, text="Constraints")
 file_label2.grid(row=1, column=2, pady=10)
 
-input_field2 = tk.Entry(tab1,width=30)
-input_field2.grid(row=2, column=2 ,padx=10)
+input_field2 = tk.Entry(tab1, width=30)
+input_field2.grid(row=2, column=2, padx=10)
 
 browse_button2 = tk.Button(tab1, text="Upload file", command=lambda: browse_file(output_text2, 'file2'))
 browse_button2.grid(row=4, column=2, pady=10)
 output_text2 = tk.Text(tab1, height=15, width=50, state='disabled')
 output_text2.grid(row=5, column=2, pady=10)
-submit_button = tk.Button(tab1, text="Add Constraint", command=lambda: submit(output_text2, input_field2, 'file2')) # submit button
-submit_button.grid(row=3, column=2,padx=10)
+submit_button = tk.Button(tab1, text="Add Constraint",
+                          command=lambda: submit(output_text2, input_field2, 'file2'))  # submit button
+submit_button.grid(row=3, column=2, padx=10)
 
 # Create the third file browse button and output field
 file_label3 = tk.Label(tab1, text="Penalty logic")
 file_label3.grid(row=1, column=3, pady=10)
 
-input_field3 = tk.Entry(tab1,width=30)
+input_field3 = tk.Entry(tab1, width=30)
 input_field3.grid(row=2, column=3, pady=10)
 
 browse_button3 = tk.Button(tab1, text="Upload file", command=lambda: browse_file(output_text3, 'file3'))
 browse_button3.grid(row=4, column=3, pady=10)
 output_text3 = tk.Text(tab1, height=15, width=50, state='disabled')
 output_text3.grid(row=5, column=3, pady=10)
-submit_button = tk.Button(tab1, text="Add Preference", command=lambda: submit(output_text3, input_field3,'file3')) # submit button
+submit_button = tk.Button(tab1, text="Add Preference",
+                          command=lambda: submit(output_text3, input_field3, 'file3'))  # submit button
 submit_button.grid(row=3, column=3, pady=10)
 
 # Create the fourth file browse button and output field
 file_label4 = tk.Label(tab1, text="Possibility logic")
 file_label4.grid(row=6, column=1, pady=10)
 
-input_field4 = tk.Entry(tab1,width=30)
+input_field4 = tk.Entry(tab1, width=30)
 input_field4.grid(row=7, column=1, pady=10)
 
 browse_button4 = tk.Button(tab1, text="Upload file", command=lambda: browse_file(output_text4, 'file4'))
 browse_button4.grid(row=9, column=1, pady=10)
 output_text4 = tk.Text(tab1, height=15, width=50, state='disabled')
 output_text4.grid(row=10, column=1, pady=10)
-submit_button = tk.Button(tab1, text="Add Preference", command=lambda: submit(output_text4, input_field4, 'file4')) # submit button
+submit_button = tk.Button(tab1, text="Add Preference",
+                          command=lambda: submit(output_text4, input_field4, 'file4'))  # submit button
 submit_button.grid(row=8, column=1, pady=10)
 
 # Create the fifth file browse button and output field
 file_label5 = tk.Label(tab1, text="Qualitative logic")
 file_label5.grid(row=6, column=2, pady=10)
 
-input_field5 = tk.Entry(tab1,width=30)
+input_field5 = tk.Entry(tab1, width=30)
 input_field5.grid(row=7, column=2, pady=10)
 
 browse_button5 = tk.Button(tab1, text="Upload file", command=lambda: browse_file(output_text5, 'file5'))
 browse_button5.grid(row=9, column=2, pady=10)
 output_text5 = tk.Text(tab1, height=15, width=50, state='disabled')
 output_text5.grid(row=10, column=2, pady=10)
-submit_button = tk.Button(tab1, text="Add Preference", command=lambda: submit(output_text5, input_field5, 'file5')) # submit button
+submit_button = tk.Button(tab1, text="Add Preference",
+                          command=lambda: submit(output_text5, input_field5, 'file5'))  # submit button
 submit_button.grid(row=8, column=2, pady=10)
 # Create the second tab and add it to the notebook
 tab2 = ttk.Frame(notebook)
