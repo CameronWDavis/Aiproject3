@@ -1,10 +1,10 @@
 hammock OR NOT cloudy, 20
-stressed OR oceanfront, 10
+sunglasses OR oceanfront, 10
 boardwalk, 10
 volleyball AND chair, 20
 surfboard AND goggles, 15
-red AND NOT oceanfront OR sandles AND relaxed, 40
+crocs AND NOT oceanfront OR sandles AND chair, 40
 sunglasses AND football, 20
 morning OR crocs, 30
-relaxed, 20
+wakeboard, 20
 wakeboard AND NOT volleyball, 10
