@@ -1,4 +1,4 @@
 hammock BT morning IF relaxed
-surfboard BT red IF crocs
+surfboard BT sunglasses IF crocs
 oceanfront AND boardwalk BT cloudy AND football IF wakeboard
-sunglasses BT relaxed IF hammock
+sunglasses BT crocs IF hammock
