@@ -2,9 +2,7 @@ shoes: crocs, sandles
 seat: hammock, chair
 ball: volleyball, football
 board: surfboard, wakeboard
-towlcolor: red, blue
 glasses: sunglasses, goggles
 weather: sunny, cloudy
-mood: stressed, relaxed
 time: morning, night
 location: oceanfront, boardwalk
