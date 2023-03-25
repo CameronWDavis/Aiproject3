@@ -1,10 +1,10 @@
-sundress AND surfboard, .1
-swimcap, .25 
-googles AND barefoot, .07
-umbrella AND swimtrunks, .15 
-alone AND NOT swimtrunks OR NOT sunglasses AND sunblock, .3
-towl, .2
-NOT swimtruncks AND NOT towl, .25
-volleyball AND alone, .05
-NOT umbrella OR towl, .1
-googles AND sandles, .05
+hammock OR NOT cloudy, .2
+stressed OR oceanfront, .1
+boardwalk, .1
+volleyball AND chair, .2
+surfboard AND goggles, .15
+red AND NOT oceanfront OR sandles AND relaxed, .4
+sunglasses AND football, .2
+morning OR crocs, .3
+relaxed, .2
+wakeboard AND NOT volleyball, .1
