@@ -1,4 +1,4 @@
 hammock BT morning IF sunglasses
 surfboard BT sunglasses IF crocs
-oceanfront AND boardwalk BT cloudy AND football IF wakeboard
+oceanfront AND boardwalk BT cloudy IF wakeboard
 sunglasses BT crocs IF hammock
