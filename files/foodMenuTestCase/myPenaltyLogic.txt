@@ -7,4 +7,3 @@ cabbage AND ice-cream, 10
 wine AND salad, 15
 vanilla OR ice-cream, 20
 vanilla, 5
-

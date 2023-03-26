@@ -1,0 +1,8 @@
+appetizer:  soup, salad
+entree: chicken, steak
+vegetable: brocoli, cabbage
+starch: noodles, rice 
+sauce: teriyaki, tomato
+drink: beer , wine
+dessertflavor: vanilla, chocolate
+dessert: cake, ice-cream
