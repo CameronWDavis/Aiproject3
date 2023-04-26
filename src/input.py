@@ -1,4 +1,4 @@
-# this is used to read the attribute file and stored everything in a menu dict
+# this is used to read the attribute file and stored everything in a menu dictionary
 from gui import *
 
 print(field_contents)
